@@ -1,0 +1,226 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"); /*Bold font*/
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+
+/*
+color palette: user RapidTables for translation
+red: #EE4540  rgb(238, 69, 64)
+redish: #C72C41 rgb(199, 44, 65)
+maroon: #801336 rgb(128, 19, 54)
+redberry: #510A32 rgb(81, 10, 50)
+purple: #2D142C rgb(45, 20, 44)
+*/
+
+* {
+  /*Typical for every styling page*/
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: Montserrat, Helvetica, Arial, sans-serif; /*Choose in order*/
+  font-weight: 500; /*Light*/
+  color: white;
+  width: 100%;
+  height: 100%;
+  background-color: #2D142C;
+}
+
+a {
+  text-decoration: none; /*To not show the underline*/
+  color: white;
+}
+
+.mainTitle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20rem;
+  height: 41rem;
+}
+
+.mainTitle h1 {
+  font-family: Bebas, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: rgba(238, 69, 64, 0.8); 
+  position: absolute;
+}
+.mainTitle h1:nth-of-type(1) {
+  font-weight: 700;
+  font-size: 5rem;
+  top: -11%;
+}
+
+.mainTitle h1:nth-of-type(2) {
+  font-weight: 800;
+  font-size: 3.55rem;
+  top: 0;
+  right: 13%;
+  
+}
+
+.wrapper {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 300px;
+}
+
+.groupParallax {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  transform-style: preserve-3d;
+}
+
+.layerParallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.mainbgImage {
+  background: url("../Images/mainbgImage.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-600px) scale(3);   /*Slowest scroll*/
+  z-index: 1; /*First Layer*/
+}
+
+.wiringDiagram {
+  background: url("../Images/WiringDiagram.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-200px) scale(1.65); /*Scroll Slower*/
+  opacity: 25%;
+  z-index: 2; /*Second Layer*/
+}
+
+.prototype {
+  background: url("../Images/Prototype.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-400px) scale(2.35); /*Scroll Slower*/
+  opacity: 25%;
+  z-index: 3; /*Third Layer*/
+}
+
+.mechanicalDrawings {
+  background: url("../Images/MechanicalDrawings.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(0px) scale(1);  /*Normal Scrolling*/
+  opacity: 65%;
+  z-index: 4; /*Forth Layer*/
+}
+
+
+/*Add the rest of the layers with translate -75px and scale -25*/
+.hero-text {
+  background-image: linear-gradient(
+    rgbargb(238, 69, 64)
+    rgba(255, 255, 255, 0.25) 86%,  /*white*/
+    rgba(45, 20, 44, 0.1) 100%
+  );
+  transform: translateZ(0) scale(1);  /*make it stick*/
+  background-size: cover;
+  z-index: 5;       /*Fifth layer*/
+}
+
+.hero-text h2 {
+    font-size: 2rem;
+    font-family: 'Bebas Neue', cursive;   
+    position: absolute;  
+    left: 2rem;
+    top: 2rem;
+    color: #801336;
+    font-weight: 100;
+    line-height: 0.8;   
+
+}
+
+.hero-text ul {
+    font-size: 1rem;
+    position: absolute;
+    right: 2.5rem;
+    top: 2.5rem;
+}
+
+.hero-text ul li {
+    margin-left: 1.5rem;
+    list-style-type: none; /*Don't show the dots*/
+    float: left;
+    visibility: hidden;
+}
+
+/*Button is always visible*/
+.hero-text ul li:nth-of-type(5) {
+    visibility: visible; 
+}
+
+@media (min-width: 1000px) {
+  .hero-text ul li {
+    visibility: visible;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.button {
+  border: 1.5px solid #801336;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  transform: translateY(-4px);  /*to aliegn*/
+  padding: 3px 5px;
+  transition: all 0.25s ease-in-out;
+}
+
+.button:hover {
+  /*Invert the colors*/
+  background: #801336;
+  color: white;
+}
+
+
+
+/*
+.CoverPage {
+    width: 100%;
+    height: 100vh;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.text-wrapper{
+    text-align: center;
+}
+.headline {
+    font-size: 15rem;
+    font-family: 'Bebas Neue', cursive;     
+    color: rgb(255, 203, 107);
+    font-weight: 100;
+    line-height: .8;    
+}
+
+
+.sub-headline {
+    font-size: 10rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-transform: uppercase;
+    color: cornsilk;
+}
+
+.CoverPicture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;    
+}
+*/
+.overflow {
+  height: 200vh; /*to be able to scroll*/
+}
