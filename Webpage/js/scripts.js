@@ -6,3 +6,8 @@ window.addEventListener('scroll', function() {
 
     // console.log(scrollPosition);
 });
+
+function scrollToTop(){
+    window.scroll({top:0 , behavior: 'smooth'}, 0);
+    alert("Scrolled Up");
+}
