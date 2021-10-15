@@ -3,6 +3,7 @@
 
 /*
 color palette: user RapidTables for translation
+orange #EB770B rgb(235, 119, 11)
 red: #EE4540  rgb(238, 69, 64)
 redish: #C72C41 rgb(199, 44, 65)
 maroon: #801336 rgb(128, 19, 54)
@@ -15,6 +16,7 @@ purple: #2D142C rgb(45, 20, 44)
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+ 
 }
 
 html,
@@ -25,6 +27,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: #2D142C;
+  /* min-width: 730px; */
 }
 
 a {
@@ -89,37 +92,49 @@ a {
   z-index: 1; /*First Layer*/
 }
 
-.wiringDiagram {
-  background: url("../Images/WiringDiagram.png") no-repeat center;
+.pingpongxs {
+  background: url("../Images/pingpongxs.png") no-repeat center;
   background-size: cover;
-  transform: translateZ(-200px) scale(1.65); /*Scroll Slower*/
-  opacity: 25%;
+  transform: translateZ(-450px) scale(2.5); /*Scroll Slower*/
+  opacity: 65%;
   z-index: 2; /*Second Layer*/
 }
 
-.prototype {
-  background: url("../Images/Prototype.png") no-repeat center;
+.pingpongs {
+  background: url("../Images/pingpongs.png") no-repeat center;
   background-size: cover;
-  transform: translateZ(-400px) scale(2.35); /*Scroll Slower*/
-  opacity: 25%;
+  transform: translateZ(-250px) scale(2.25); /*Scroll Slower*/
+  opacity: 55%;
+  filter: blur(4px);
   z-index: 3; /*Third Layer*/
 }
 
-.mechanicalDrawings {
-  background: url("../Images/MechanicalDrawings.png") no-repeat center;
+.pingpongl {
+  background: url("../Images/pingpongl.png") no-repeat center;
   background-size: cover;
-  transform: translateZ(0px) scale(1);  /*Normal Scrolling*/
-  opacity: 65%;
+  transform: translateZ(-100px) scale(1.4);  /*Normal Scrolling*/
+  opacity: 45%;
+  filter:blur(9px);
   z-index: 4; /*Forth Layer*/
+}
+
+.pingpongxl {
+  background: url("../Images/pingpongxl.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(0px) scale(1.6);  /*Normal Scrolling*/
+  opacity: 35%;
+  filter: blur(18px);
+  z-index: 5; /*Fifth Layer*/
 }
 
 
 /*Add the rest of the layers with translate -75px and scale -25*/
 .hero-text {
   background-image: linear-gradient(
-    rgbargb(238, 69, 64)
-    rgba(255, 255, 255, 0.25) 86%,  /*white*/
-    rgba(45, 20, 44, 0.1) 100%
+    rgba(235, 119, 11, 0.3) 0%,
+    rgba(235, 119, 11, 0.25) 10%,
+    rgba(143, 62, 62, 0) 80%,  
+    rgba(45, 20, 44, 1) 100%
   );
   transform: translateZ(0) scale(1);  /*make it stick*/
   background-size: cover;
@@ -132,7 +147,7 @@ a {
     position: absolute;  
     left: 2rem;
     top: 2rem;
-    color: #801336;
+    color: rgba(235, 119, 11, 50%);
     font-weight: 100;
     line-height: 0.8;   
 
@@ -146,41 +161,111 @@ a {
 }
 
 .hero-text ul li {
+    
     margin-left: 1.5rem;
     list-style-type: none; /*Don't show the dots*/
     float: left;
-    visibility: hidden;
+    /* visibility: hidden; */
+    display: none;
 }
 
 /*Button is always visible*/
 .hero-text ul li:nth-of-type(5) {
-    visibility: visible; 
+    /* visibility: visible;  */
+    display: inline-block;
 }
 
-@media (min-width: 1000px) {
-  .hero-text ul li {
-    visibility: visible;
-    transition: all 0.3s ease-in-out;
-  }
-}
 
-.button {
-  border: 1.5px solid #801336;
+.btn {
+  border: 1.5px solid #EB770B;
+  color: #EB770B;
   border-radius: 0.8rem;
   font-weight: 600;
   transform: translateY(-4px);  /*to aliegn*/
   padding: 3px 5px;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.10s ease-in-out;
 }
 
-.button:hover {
+.btn:hover {
   /*Invert the colors*/
-  background: #801336;
-  color: white;
+  color: #2D142C;
+  background-color: #EB770B; 
+}
+
+.info {
+  transform: translateZ(0) scale(1);  /*regular scrolling*/
+  z-index: 6;
+  background: #2D142C;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.info img{
+  width: 80%;
+  margin-bottom: 3rem;
+}
+
+.info h2, .info p {
+  margin-bottom: 1rem;
+}
+
+.text {
+  margin-bottom: 3rem;
+  font-size: 0.7rem;
+}
+.text p {
+  margin: 1rem 1rem;
+  font-size: 00.8rem;
+  font-weight: 500;
+}
+/* @media (min-width: 1200px) {
+  .mainbgImage,
+  .pingpongxl,
+  .pingpongl,
+  .pingpongs,
+  .pingpongxs,
+  .hero-text {background-size: contain;}
+} */
+
+@media (min-width: 960px) {
+  .hero-text ul li {
+    /* visibility: visible; */
+    display:inline;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /*fractions*/
+    grid-column-gap: 3rem;
+    align-items: center;
+    text-align: left;
+  }
+  .info img {
+    width: fit-content;
+    justify-self: end;
+  }
+
+  .text {
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+  .text p {
+    margin: 1rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
 }
 
 
-
+@media (max-width: 400px) {
+  .hero-text a{
+    display: none;
+  }
+}
 /*
 .CoverPage {
     width: 100%;
@@ -221,6 +306,6 @@ a {
     z-index: -1;    
 }
 */
-.overflow {
+/* .overflow {
   height: 200vh; /*to be able to scroll*/
-}
+
