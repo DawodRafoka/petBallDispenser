@@ -48,6 +48,8 @@ a {
 .mainTitle h1 {
   font-family: Bebas, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: rgba(238, 69, 64, 0.8); 
+  -webkit-text-stroke: 2px rgba(81, 10, 50, 0.3);
+  text-shadow: rgba(235, 119, 11, 0.35) 0 0 20px;
   position: absolute;
 }
 .mainTitle h1:nth-of-type(1) {
@@ -106,9 +108,9 @@ a {
 .pingpongs {
   background: url("../Images/pingpongs.png") no-repeat center;
   background-size: cover;
-  transform: translateZ(-300px) scale(2.45); /*Scroll Slower*/
+  transform: translateZ(-300px) scale(2); /*Scroll Slower*/
   opacity: 55%;
-  filter: blur(4px);
+  filter: blur(6px);
   z-index: 3; /*Third Layer*/
 }
 
@@ -117,7 +119,7 @@ a {
   background-size: cover;
   transform: translateZ(-100px) scale(1.4);  /*Normal Scrolling*/
   opacity: 45%;
-  filter:blur(9px);
+  filter:blur(11px);
   z-index: 4; /*Forth Layer*/
 }
 
@@ -126,7 +128,7 @@ a {
   background-size: cover;
   transform: translateZ(0px) scale(1.3);  /*Normal Scrolling*/
   opacity: 35%;
-  filter: blur(18px);
+  filter: blur(19px);
   z-index: 5; /*Fifth Layer*/
 }
 
@@ -235,11 +237,13 @@ a {
 
 .text {
   margin-bottom: 4rem;
-  font-size: 0.7rem;
+  font-size: 1rem;
+  text-align: center;
 }
 .text p {
-  margin: 1rem 1rem;
-  font-size: 00.8rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 /* @media (min-width: 1200px) {
@@ -280,12 +284,8 @@ a {
   .text {
     margin-bottom: 2rem;
     margin-right: 2rem;
-    font-size: 1rem;
-  }
-  .text p {
-    /* margin: 1rem 1rem; */
     font-size: 1.1rem;
-    font-weight: 500;
+    text-align: left;
   }
 }
 
