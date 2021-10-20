@@ -132,6 +132,15 @@ a {
   z-index: 5; /*Fifth Layer*/
 }
 
+.pingpongxxl {
+  background: url("../Images/pingpongxxl.png") no-repeat top;
+  background-size: cover;
+  transform: translateY(80px) translateZ(220px) scale(0.29);
+  opacity: 20%;
+  filter: blur(22px);
+  overflow: hidden;
+  z-index: 6; /*Sixth Layer*/
+}
 /*Add the rest of the layers with translate -75px and scale -25*/
 .hero-text {
   background-image: linear-gradient(
@@ -161,6 +170,7 @@ a {
   position: absolute;
   right: 2.5rem;
   top: 2rem;
+  z-index: -5;
 }
 
 .hero-text ul li {
@@ -224,13 +234,13 @@ a {
   border: 1px solid #ee4540;
   box-shadow: #ee4540 0 0 30px;
   margin-top: 0.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 8rem;
 }
 
 .gridContainer img {
   width: fit-content;
   margin-top: 0.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 8rem;
 }
 
 .gridContainer h2,
