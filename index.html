@@ -9,7 +9,7 @@
     <script type="text/javascript" src="./js/scripts.js"></script>
 </head>
 <body>
-    <div class="wrapper"> 
+    <div class="wrapper" id="bg"> 
         <div class="groupParallax hero">
             <!-- Images go here -->
             <div class="layerParallax mainbgImage"></div>
@@ -26,7 +26,7 @@
                     <li><a href="#">Electrical Design</a></li>
                     <li><a href="#">Firmware</a></li>
                     <li><a href="#">About US</a></li>
-                    <li id="suggestions" class="btn"><a href="#">Suggestions?</a></li>
+                    <li id="suggestions" class="btn"><a onclick="showForm()">Suggestions?</a></li>
                 </ul>
                 <div class="mainTitle">
                     <h1>Pet Ball</h1>
@@ -61,15 +61,35 @@
                 <a id="backToTop" href="#" class="btn" onclick="scrollToTop()">Scroll Up</a>
             </div>
             <img src="./Images/imageSample.png" alt="3D Model">
-            
-            
+        
         </div>
+        
+        
+        
         <!-- <img src="./Images/coverImage19201920.png" alt="Cover Picture" class="CoverPicture">
         <div class="textwrapper">
             <h1 class="headline">Pet Ball Dispenser</h1>
             <h2 class="sub-headline">Senior Design Project</h2>
             
         </div> -->
+    
+    <!-- Pop up form-->
+    </div>
+    <div class="formContainer" id="popupForm">
+        <label for="popupForm" class="closeBtn" onclick="closeForm()">X</label>
+        <h2>Your suggestions and feedback make us better engineers!</h2>
+        <form name = "suggestionsForm" onsubmit="return validateForm()" action="#">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <label for="comments">Comments</label>
+            <textarea type="text" id="comments" name="comments"></textarea>
+            <button type="submit" class="btn" id="submit">Submit</button>
+            <div class="mailTo">You may also email us at: <a href="mailto:drafoka4124@sdsu.edu">drafoka4124@sdsu.edu</a></div>
+        </form>
     </div>
     <!-- <section class="overflow"></section> -->
 </body>

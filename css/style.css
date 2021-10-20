@@ -36,6 +36,31 @@ a {
   color: white;
 }
 
+label {
+  display: block;
+  margin-top: 1rem;
+}
+
+input, textarea{
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  color: whitesmoke;
+  font-size: 1rem;
+  font-style: italic;
+  display: block;
+  width: 95%;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 0.5px solid whitesmoke;
+}
+
+textarea {
+  resize: vertical;
+  overflow-y: hidden;
+  height: 3rem;
+}
+
 .mainTitle {
   position: absolute;
   left: 50%;
@@ -74,6 +99,15 @@ a {
 
   /* word-wrap: break-word; */
 }
+
+/*Blur the background when form opens*/
+.wrapper#bg.active
+{
+  filter: blur(5px) brightness(80%);
+  pointer-events: none;
+  user-select: none;
+}
+
 
 .groupParallax {
   position: relative;
@@ -136,8 +170,8 @@ a {
   background: url("../Images/pingpongxxl.png") no-repeat top;
   background-size: cover;
   transform: translateY(80px) translateZ(220px) scale(0.29);
-  opacity: 20%;
-  filter: blur(22px);
+  opacity: 15%;
+  filter: blur(26px);
   overflow: hidden;
   z-index: 6; /*Sixth Layer*/
 }
@@ -185,6 +219,7 @@ a {
 .hero-text ul li:nth-of-type(5) {
   /* visibility: visible;  */
   display: inline-block;
+  cursor: pointer;
 }
 
 .btn {
@@ -201,6 +236,69 @@ a {
   /*Invert the colors*/
   color: #2d142c;
   background-color: #eb770b;
+}
+
+/* #popupForm.active {
+  visibility: visible;
+  opacity: 0;
+  transition: 0.5s;
+} */
+
+.formContainer {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: max-content;
+  padding: 3rem;
+  border-radius: 1rem;
+  background: rgba(81, 10, 50, 0.25);
+  border: 1px solid rgba(235, 119, 11, 0.4);
+  box-shadow: rgba(235, 119, 11, 0.5) 0 0 20px;
+  justify-self: center;
+  backdrop-filter: blur(20px);
+  z-index: 7;
+}
+
+.formContainer a, .btn, h2, .mailTo {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 5px;
+  right: 25px;
+  font-weight: 300;
+}
+.closeBtn:hover {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ee4540;
+  transition:all 0.1s ease-in-out;
+  text-shadow: #000 0 0 2px;
+}
+
+#submit {
+  font-size: 1.2rem;
+  font-weight: 200;
+  padding: 5px 0 5px 0;
+  margin-top: 2rem;
+  color: #eb770b;
+  background-color: rgba(45, 20, 44, 0.8);
+  width: 40%;
+  
+}
+#submit:hover {
+  font-weight: bold;
+  color: #2d142c;
+  background-color: rgba(235, 119, 11, 0.5);
+  box-shadow: rgba(255,255,255, 0.5) 0 0 20px;
 }
 
 .gridContainer {
