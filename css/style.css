@@ -55,6 +55,10 @@ input, textarea{
   border-bottom: 0.5px solid whitesmoke;
 }
 
+input:focus, textarea:focus{
+  background-color: rgba(5, 2, 5, 0.2);
+}
+
 textarea {
   resize: vertical;
   overflow-y: hidden;
@@ -63,15 +67,16 @@ textarea {
 
 footer {
   /* overflow: hidden; */
-  position: fixed;
+  position: relative;
   width: 100%;
   /* height: 4rem; */
   height: auto;
   bottom: 0;
   padding: 1rem 1rem 1rem 1rem;
   text-align: center;
-  background: rgba(5, 2, 5, 0.5);
-  color: whitesmoke;
+  /* background: rgba(5, 2, 5, 0.5); */
+  background: rgb(5, 2, 5);
+  /* color: whitesmoke; */
   transition: bottom 0.25s ease-in-out;
   /* z-index: -1; */
 }
@@ -81,21 +86,19 @@ footer {
   font-size: 0.8rem;
   margin-bottom: 0.2rem;
 }
-.footer ul{
-  display: inline-block;
-  font-size: 0.8rem;
-  /* position: absolute; */
+/* .footer ul{
   right: 2.5rem;
   top: 2rem;
-}
+} 
 
 .footer ul li {
   margin-left: 1.5rem;
-  list-style-type: none; /*Don't show the dots*/
+  list-style-type: none;
   float: left;
-  /* visibility: hidden; */
-  /* display: none; */
 }
+.footer ul li:hover { 
+  text-shadow: #eb770b 0 0 5px;
+}*/
 
 .mainTitle {
   position: absolute;
@@ -103,7 +106,8 @@ footer {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 20rem;
-  height: 41rem;
+  height: 38rem;
+  /* z-index: inherit; */
 }
 
 .mainTitle h1 {
@@ -306,6 +310,14 @@ footer {
   text-align: center;
 }
 
+.formContainer .commentNode {
+  font-size: 0.7rem;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255,255,255, 0.5);
+  margin-left: 0.7rem;
+}
+
 .closeBtn {
   position: absolute;
   top: 5px;
@@ -313,6 +325,9 @@ footer {
   font-weight: 300;
 }
 .closeBtn:hover {
+  /*to animate the button but keep it in its position*/
+  top: 1px;
+  right: 22px;
   font-size: 1.5rem;
   font-weight: bold;
   color: #ee4540;
