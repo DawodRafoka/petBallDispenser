@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Ball Dispenser</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="./js/scripts.js"></script>
 </head>
 <body>
@@ -19,7 +20,7 @@
             <div class="layerParallax pingpongxl"></div>
             <div class="layerParallax pingpongxxl"></div>
             <!-- Transparent Navigation Bar -->
-            <div class="layerParallax hero-text">
+            <div class="layerParallax hero-text" id="topNav">
                 <h2>Senior Design | 2021</h2>
                 <ul>
                     <li><a href="#">Mechanical Design</a></li>
@@ -72,9 +73,20 @@
             <h2 class="sub-headline">Senior Design Project</h2>
             
         </div> -->
+
+        
     
-    <!-- Pop up form-->
     </div>
+    <footer class="footer" id="footer">
+        <p class="copyright">&copy San Diego State University  •  Senior Design 2021  •  Team 8</p>
+        <ul class="extraLinks">
+            <li><a href="#">Mechanical Design</a></li>
+            <li><a href="#">Electrical Design</a></li>
+            <li><a href="#">Firmware</a></li>
+            <li><a href="#">About US</a></li>
+        </ul>
+    </footer>
+    <!-- Pop up form-->
     <div class="formContainer" id="popupForm">
         <label for="popupForm" class="closeBtn" onclick="closeForm()">X</label>
         <h2>Your suggestions and feedback make us better engineers!</h2>

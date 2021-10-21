@@ -61,6 +61,42 @@ textarea {
   height: 3rem;
 }
 
+footer {
+  /* overflow: hidden; */
+  position: fixed;
+  width: 100%;
+  /* height: 4rem; */
+  height: auto;
+  bottom: 0;
+  padding: 1rem 1rem 1rem 1rem;
+  text-align: center;
+  background: rgba(5, 2, 5, 0.5);
+  color: whitesmoke;
+  transition: bottom 0.25s ease-in-out;
+  /* z-index: -1; */
+}
+
+.footer p{
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+.footer ul{
+  display: inline-block;
+  font-size: 0.8rem;
+  /* position: absolute; */
+  right: 2.5rem;
+  top: 2rem;
+}
+
+.footer ul li {
+  margin-left: 1.5rem;
+  list-style-type: none; /*Don't show the dots*/
+  float: left;
+  /* visibility: hidden; */
+  /* display: none; */
+}
+
 .mainTitle {
   position: absolute;
   left: 50%;
@@ -199,7 +235,7 @@ textarea {
   line-height: 0.8;
 }
 
-.hero-text ul {
+.hero-text ul{
   font-size: 1rem;
   position: absolute;
   right: 2.5rem;
