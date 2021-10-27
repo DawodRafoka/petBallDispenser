@@ -251,6 +251,7 @@ footer {
   margin-left: 1.5rem;
   list-style-type: none; /*Don't show the dots*/
   float: left;
+  /* text-align: right; */
   /* visibility: hidden; */
   display: none;
 }
