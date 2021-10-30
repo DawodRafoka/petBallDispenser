@@ -164,15 +164,16 @@ footer {
   bottom: 0;
 }
 
+/* index.html background */
 .mainbgImage {
-  background: url("../Images/mainbgImage.png") no-repeat center;
+  background: url("../Images/main/mainbgImage.png") no-repeat center;
   background-size: cover;
   transform: translateZ(-600px) scale(3); /*Slowest scroll*/
   z-index: 1; /*First Layer*/
 }
 
 .pingpongxs {
-  background: url("../Images/pingpongxs.png") no-repeat center;
+  background: url("../Images/main/pingpongxs.png") no-repeat center;
   background-size: cover;
   transform: translateZ(-450px) scale(2.5); /*Scroll Slower*/
   opacity: 65%;
@@ -180,7 +181,7 @@ footer {
 }
 
 .pingpongs {
-  background: url("../Images/pingpongs.png") no-repeat center;
+  background: url("../Images/main/pingpongs.png") no-repeat center;
   background-size: cover;
   transform: translateZ(-300px) scale(2); /*Scroll Slower*/
   opacity: 55%;
@@ -189,7 +190,7 @@ footer {
 }
 
 .pingpongl {
-  background: url("../Images/pingpongl.png") no-repeat center;
+  background: url("../Images/main/pingpongl.png") no-repeat center;
   background-size: cover;
   transform: translateZ(-100px) scale(1.4); /*Normal Scrolling*/
   opacity: 45%;
@@ -198,7 +199,7 @@ footer {
 }
 
 .pingpongxl {
-  background: url("../Images/pingpongxl.png") no-repeat center;
+  background: url("../Images/main/pingpongxl.png") no-repeat center;
   background-size: cover;
   transform: translateZ(0px) scale(1.3); /*Normal Scrolling*/
   opacity: 35%;
@@ -207,7 +208,7 @@ footer {
 }
 
 .pingpongxxl {
-  background: url("../Images/pingpongxxl.png") no-repeat top;
+  background: url("../Images/main/pingpongxxl.png") no-repeat top;
   background-size: cover;
   transform: translateY(80px) translateZ(220px) scale(0.29);
   opacity: 15%;
@@ -215,6 +216,59 @@ footer {
   overflow: hidden;
   z-index: 6; /*Sixth Layer*/
 }
+
+/* mechanical.html */
+
+.mechanicalTitle {
+  left: 45%;
+  opacity: 80%;
+}
+
+
+.mainMechanical {
+  background: url("../Images/mechanical/base.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-600px) scale(3); /*Slowest scroll*/
+  z-index: 1; /*First Layer*/
+}
+
+.enclusure {
+  background: url("../Images/mechanical/enclusure.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-350px) scale(2.18); /*Scroll Slower*/
+  opacity: 65%;
+  z-index: 2; /*Second Layer*/
+}
+
+.connecter {
+  background: url("../Images/mechanical/connecter.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-250px) scale(1.9); /*Scroll Slower*/
+  opacity: 55%;
+  /* filter: blur(6px); */
+  z-index: 1; /*Third Layer*/
+}
+
+.hopper {
+  background: url("../Images/mechanical/hopper.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-150px) scale(1.5); /*Normal Scrolling*/
+  opacity: 45%;
+  /* filter: blur(11px); */
+  z-index: -1; /*Forth Layer*/
+}
+
+.lid {
+  background: url("../Images/mechanical/lid.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(0px) scale(1); /*Normal Scrolling*/
+  opacity: 35%;
+  /* filter: blur(19px); */
+  z-index: -2; /*Fifth Layer*/
+}
+
+
+
 /*Add the rest of the layers with translate -75px and scale -25*/
 .hero-text {
   background-image: linear-gradient(
@@ -228,7 +282,7 @@ footer {
   z-index: 5; /*Fifth layer*/
 }
 
-.hero-text h2 {
+.hero-text #mainLogo {
   font-size: 2rem;
   font-family: "Bebas Neue", cursive;
   position: absolute;
