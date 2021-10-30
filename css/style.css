@@ -86,19 +86,7 @@ footer {
   font-size: 0.8rem;
   margin-bottom: 0.2rem;
 }
-/* .footer ul{
-  right: 2.5rem;
-  top: 2rem;
-} 
 
-.footer ul li {
-  margin-left: 1.5rem;
-  list-style-type: none;
-  float: left;
-}
-.footer ul li:hover { 
-  text-shadow: #eb770b 0 0 5px;
-}*/
 
 .mainTitle {
   position: absolute;
@@ -267,6 +255,55 @@ footer {
   z-index: -2; /*Fifth Layer*/
 }
 
+/* electrical.html */
+
+.electricalTitle {
+  left: 45%;
+  opacity: 80%;
+}
+
+
+.mainElectrical {
+  background: url("../Images/electrical/mainElectrical.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-600px) scale(3);
+  z-index: 0; /*First Layer*/
+}
+
+.uiPCB {
+  background: url("../Images/electrical/uiPCB.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(0px) scale(1); 
+  opacity: 35%;
+  z-index: 4; 
+}
+
+.mainPCB {
+  background: url("../Images/electrical/mainPCB.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-150px) scale(1.5);
+  opacity: 45%;
+  z-index: 3; 
+}
+
+.stepper {
+  background: url("../Images/electrical/stepper.png") no-repeat center;
+  background-size: cover;
+  /* transform: translateZ(90px) scale(0.7);  */
+  transform: translateZ(-300px) scale(2);
+  opacity: 55%;
+  z-index: 2;
+}
+
+.dcMotor {
+  background: url("../Images/electrical/dcMotor.png") no-repeat center;
+  background-size: contain;
+  /* transform: translateZ(150px) scale(0.45); */
+  transform: translateZ(90px) scale(0.7);
+  opacity: 65%;
+  z-index: 1;
+  bottom: -10%;
+}
 
 
 /*Add the rest of the layers with translate -75px and scale -25*/
@@ -279,7 +316,7 @@ footer {
   );
   transform: translateZ(0) scale(1); /*make it stick*/
   background-size: cover;
-  z-index: 5; /*Fifth layer*/
+  z-index: 10; 
 }
 
 .hero-text #mainLogo {
@@ -298,7 +335,7 @@ footer {
   position: absolute;
   right: 2.5rem;
   top: 2rem;
-  z-index: -5;
+  /* z-index: -5; */
 }
 
 .hero-text ul li {
