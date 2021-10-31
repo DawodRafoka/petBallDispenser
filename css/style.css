@@ -41,6 +41,28 @@ label {
   margin-top: 1rem;
 }
 
+/******** Scroll Bar *************/
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #2d142c; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #754341; 
+}
+
 input, textarea{
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   color: whitesmoke;
@@ -305,9 +327,10 @@ footer {
   bottom: -10%;
 }
 
-/* firmware.html */
+/************************** firmware.html ****************************/
 
 .firmwareTitle {
+  left: 45%;
   opacity: 80%;
 }
 
@@ -345,6 +368,108 @@ footer {
   filter: blur(4px);
   z-index: 2;
 }
+
+
+.showLines {
+  float: right;
+  
+}
+
+div .codeSegment {
+  /* align-content: center;
+  align-self: center;
+  align-items: center; */
+  max-width: 80%;
+  
+}
+/* code inspired from speckyboy.com */
+code, pre{
+  color: whitesmoke;
+  font-family: "Consolas", "Bitstream Vera Sans Mono", 'Courier New', Courier, monospace;
+  direction: ltr;
+  text-align: left;
+  white-space:  pre;
+  /* text-justify: distribute-all-lines; */
+  word-wrap: break-word;
+  word-spacing: normal;
+  word-break: normal;
+  font-size: 0.9rem;
+  line-height: 1.1rem;
+  tab-size: 4;
+  hyphens: none;
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+pre {
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow: auto;
+  border: 1px solid #393A34;
+  background-color: #272027;
+  counter-reset: linecounter;
+}
+
+pre span.line {
+  counter-increment: linecounter;
+  line-height: 16px;
+}
+pre span.line::before {
+  content: counter(linecounter);
+  color: #eb770b;
+  width: 30px;
+  display: inline-block;
+  border-right: 1px dotted #ccc;
+  padding-right: 3px;
+  margin-right: 5px;
+  text-align: right;
+  font-size: 0.8rem;
+  line-height: 16px;
+}
+
+
+:not(pre) > code, pre {
+  padding: 1rem;
+  padding-top: 2px;
+  padding-bottom: 1px; 
+  /* background: #f8f8f8; */
+  background: #272027;
+  border: 1px solid #dddddd;
+}
+
+.token.comment, .token.prolog, .token.doctype, .token.cdata {
+  color: #209b20b0;
+  font-style: italic;
+}
+.token.namespace {
+  opacity: 0.7;
+}
+.token.string, .token.attr-value {
+  color: #ee4540;
+}
+.token.punctuation, .token.operator {
+  /* color: #393A34; */
+  color: #5f96bb;
+}
+.token.entity, .token.url, .token.symbol, .token.number, 
+.token.boolean, .token.variable, .token.constant, .token.property,
+.token.regex, .token.inserted {
+  color: #36acaa;
+}
+.token.function, .token.deleted, .language-autohotkey .token.tag {
+  color: #00a5db;
+}
+.token.tag, .token.selector, .language-autohotkey .token.keyword {
+  color: #00009f;
+}
+.token.important, .token.function, .token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+
 
 
 
@@ -402,7 +527,7 @@ footer {
   border-radius: 0.8rem;
   font-weight: 600;
   transform: translateY(-4px); /*to aliegn*/
-  padding: 3px 5px;
+  padding: 2px 10px 2px 10px;
   transition: all 0.1s ease-in-out;
 }
 
@@ -440,7 +565,7 @@ footer {
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  display: block;
+  /* display: block; */
   text-align: center;
 }
 
@@ -568,7 +693,12 @@ footer {
     align-items: center;
     text-align: left;
   }
-  .subHeader {
+  .subHeader{
+    /*To not display next to it*/
+    grid-column: 1/3;
+  }
+
+  .codeSegment {
     /*To not display next to it*/
     grid-column: 1/3;
   }
