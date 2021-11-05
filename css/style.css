@@ -129,14 +129,15 @@ footer {
   -webkit-text-stroke: 2px rgba(81, 10, 50, 0.3);
   text-shadow: rgba(235, 119, 11, 0.35) 0 0 20px;
   position: absolute;
+  font-size: 4rem;
 }
-.mainTitle h1:nth-of-type(1) {
+.indexTitle h1:nth-of-type(1) {
   font-weight: 700;
   font-size: 5rem;
   top: -11%;
 }
 
-.mainTitle h1:nth-of-type(2) {
+.indexTitle h1:nth-of-type(2) {
   font-weight: 800;
   font-size: 3.55rem;
   top: 0;
@@ -474,6 +475,70 @@ code, pre {
 
 
 
+
+
+/************************** about.html ****************************/
+
+.aboutTitle {
+  opacity: 80%;
+}
+
+.portrait {
+  border-radius: 50%;
+  height: 20vh;
+  width: 20vw;
+  margin-top: 0.5rem;
+  margin-bottom: 4rem;
+}
+
+.socialMedia {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.linkedin {
+  margin-right: 0.25rem;
+}
+.fa{
+  padding: 0.5rem;
+  font-size: 3rem;
+  /* width: 2rem; */
+  text-align: center;
+  text-decoration: none;
+  /* margin: 5px 2px; */
+  border-radius: 50%;
+  justify-content: center;
+}
+
+.fa:hover {
+    /* border: 1px solid #007bb5; */
+    box-shadow: #007bb5 0 0 30px;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.dawod {
+  border: 1px solid #0b74eb;
+  box-shadow: #0b74eb 0 0 30px;
+}
+.james {
+  border: 1px solid #8696a8;
+  box-shadow: #8696a8 0 0 30px;
+}
+.jared {
+  border: 1px solid #eb770b;
+  box-shadow: #eb770b 0 0 30px;
+}
+.othman {
+  border: 1px solid #ee4540;
+  box-shadow: #ee4540 0 0 30px;
+}
 
 /*Add the rest of the layers with translate -75px and scale -25*/
 .hero-text {
