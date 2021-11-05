@@ -85,6 +85,8 @@ textarea {
   resize: vertical;
   overflow-y: hidden;
   height: 3rem;
+  min-height: 2rem;
+  max-height: 15rem;
 }
 
 footer {
@@ -429,12 +431,12 @@ pre span.line::before {
 }
 
 
-:not(pre) > code, pre {
+code, pre {
   padding: 1rem;
   padding-top: 2px;
   padding-bottom: 1px; 
   /* background: #f8f8f8; */
-  background: #272027;
+  background: #16001b;
   border: 1px solid #dddddd;
 }
 
@@ -551,6 +553,7 @@ pre span.line::before {
   transform: translate(-50%, -50%);
   width: 80%;
   max-width: max-content;
+  max-height: 90%;
   padding: 3rem;
   border-radius: 1rem;
   background: rgba(81, 10, 50, 0.25);
@@ -648,7 +651,7 @@ pre span.line::before {
 
 .gridContainer img {
   width: fit-content;
-  max-width: 75%;
+  max-width: 95%;
   margin-top: 0.5rem;
   margin-bottom: 8rem;
 }

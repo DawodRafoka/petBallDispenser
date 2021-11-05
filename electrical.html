@@ -36,47 +36,42 @@
         </div>
         <div class="groupParallax gridContainer">
             <div class="subHeader">
-                <p>...<br>Both PCBs were created in KiCad</p>
+                <p>A brain needs a body to operate!<br>Our device's electrical portion consists of PCBs, motors, drivers, passive/active components, wires, and of course, the Arduino</p>
             </div>
             
             <div class="text">
-                <h2>Thank you for visiting our webpage!</h2>
-                <p>You can scroll through the pages to learn more about our project</p>
-                <a id="backToTop" href="#" class="btn" onclick="scrollToTop()">Scroll Up</a>
+                <h2>Main PCB</h2>
+                <p> The PCB is powered by a 12V DC connection at the connector J9. The power is fed to a switch to regulate when the user turns the device on or off. The 12V power is run on a line itself while also running through two voltage regulators, U2 and U3, parallel to this. On the 12V line, filter capacitor C4 to reduce the effect of low-frequency, high energy transients.</p>
             </div>
-            <img src="./Images/imageSample.png" alt="3D Model">
-        
+            <img src="./Images/electrical/contentImages/mainPCB.png" alt="3D Model">
+            
+            <div class="text">
+                <h2>User Interface PCB</h2>
+                <p> The schematic diagram for the PCB design of the User Interface (UI). The PCB will be powered by the connections from the PCB in Figure 2. The User Interface PCB is the slave to the PCB in Figure 2. The User interface PCB holds the compantanes that would allow the user to control the machine. The LCD is connected to J5 (female pins), the rotary encoder connected to J6 (female pins) ,the LED is connected to J3 (female pins), the switch is connected to J4 (female pins) and the Photocell is connected to J2(female pins). They would connect to the Male pins that are on the master PCB like a piece of lego to be controlled by the arduino. </p>
+            </div>
+            <img src="./Images/electrical/contentImages/uiPCB.png" alt="3D Model">
+
+            <div class="text">
+                <h2>Initial Wiring Diagram</h2>
+                <p>Our initial wiring diagram consisted of ......</p>
+            </div>
+            <img src="./Images/electrical/contentImages/initialWiringDiagram.png" alt="3D Model">
+
+
+            <div class="text">
+                <h2>Final Wiring Diagram</h2>
+                <p>As shown in the figure...</p>
+            </div>
+            <img src="./Images/electrical/contentImages/finalWiringDiagram.png" alt="3D Model">
+
+
         </div>
         
         <footer class="footer" id="footer">
             <p class="copyright">&copy San Diego State University  •  Senior Design 2021  •  Team 8</p>
-            <!-- <ul class="extraLinks">
-                <li><a href="#">Mechanical Design</a></li>
-                <li><a href="#">Electrical Design</a></li>
-                <li><a href="#">Firmware</a></li>
-                <li><a href="#">About US</a></li>
-            </ul> -->
         </footer>
-        
-        <!-- <img src="./Images/coverImage19201920.png" alt="Cover Picture" class="CoverPicture">
-        <div class="textwrapper">
-            <h1 class="headline">Pet Ball Dispenser</h1>
-            <h2 class="sub-headline">Senior Design Project</h2>
-            
-        </div> -->
-
-        
-    
     </div>
-    <!-- <footer class="footer" id="footer">
-        <p class="copyright">&copy San Diego State University  •  Senior Design 2021  •  Team 8</p>
-        <ul class="extraLinks">
-            <li><a href="#">Mechanical Design</a></li>
-            <li><a href="#">Electrical Design</a></li>
-            <li><a href="#">Firmware</a></li>
-            <li><a href="#">About US</a></li>
-        </ul>
-    </footer> -->
+
     <!-- Pop up form-->
     <div class="formContainer" id="popupForm">
         <label for="popupForm" class="closeBtn" onclick="closeForm()">X</label>
@@ -94,6 +89,5 @@
             <div class="mailTo">You may also email us at: <a href="mailto:drafoka4124@sdsu.edu">drafoka4124@sdsu.edu</a></div>
         </form>
     </div>
-    <!-- <section class="overflow"></section> -->
 </body>
 </html>
