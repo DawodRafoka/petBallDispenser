@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
     <script type="text/javascript" src="./js/scripts.js"></script>
 </head>
-<body>
+<body onload="showLines();">
     <div class="wrapper" id="bg"> 
         <div class="layerParallax hero-text" id="topNav">
             <a href="./index.html" id="mainLogo">Senior Design | 2021</a>
@@ -40,16 +40,16 @@
             
             <div class="codeSegment">
                 <a href="#">MainProgram.c</a>
-                <a class="btn showLines" onclick="showLines()">show line numbers</a>
+                <!-- <a class="btn showLines" onclick="showLines()">show line numbers</a> -->
             <pre>
             <code class="language-c">
-    /*
-    * Authors: Dawod Rafoka & James Bunnill
-    * Project: Pet Ball Dispenser
-    * Class: CompE-496 | Senior Design B
-    * Date: 10/10/2021
-    * File: MainProgram.ino intefaces with the Arduino
-    */
+            <xmp>
+    // * Authors: Dawod Rafoka & James Bunnill
+    // * Project: Pet Ball Dispenser
+    // * Class: CompE-496 | Senior Design B
+    // * Date: 10/10/2021
+    // * File: MainProgram.ino intefaces with the Arduino
+
 
     /*#########################################################*/
     /*#################### INITIALIZERS #######################*/
@@ -148,12 +148,12 @@
     extern MenuItem mainMenu[];
     // Initialize the main menu items
     MenuItem mainMenu[] = {ItemHeader(),
-                        MenuItem("Ball Dispenser"),
-                        MenuItem("Despense"),
-                        MenuItem("Unjam"),
-                        MenuItem("Calibrate"),
-                        ItemList("About", about, aboutLength, resetCallback),
-                        ItemFooter()};
+                            MenuItem("Ball Dispenser"),
+                            MenuItem("Despense"),
+                            MenuItem("Unjam"),
+                            MenuItem("Calibrate"),
+                            ItemList("About", about, aboutLength, resetCallback),
+                            ItemFooter()};
 
     // To track and control the rotary encoder
     unsigned int position = 0;
@@ -175,18 +175,6 @@
     {
         Serial.begin(9600);
         menu.setupLcdWithMenu(rs, en, d4, d5, d6, d7, mainMenu);
-        //STEPPER MOTOR DRIVER
-        // pinMode(stepSTEP, OUTPUT);
-        // pinMode(stepDIR, OUTPUT);
-        // pinMode(currentSensor1, INPUT);
-        // pinMode(currentSensor2, INPUT);
-
-        //DC MOTOR DRIVER
-        // pinMode(DcEN, OUTPUT);
-        // pinMode(DcDIR, OUTPUT);
-        // Turn off motors - initially
-        // turnDCmotorOFF();
-
         //Light Sensor Calibartion Initialization
 
         analogReadResolution(12); //Making the resolution 12 bits instead of 10
@@ -223,25 +211,6 @@
         Nema17.setMaxSpeed(1000);
         Nema17.setSpeed(10);
         Nema17.setAcceleration(5);
-        
-        //inital homming
-        // while(digitalRead(LimDeploy) == HIGH){ 
-        //     Nema17.moveTo(DEPLOYED);   
-        //     Nema17.runSpeed();
-        //     DEPLOYED--;
-        //     delay(5);
-        // }
-        // Nema17.setCurrentPosition(-10);
-        // //Nema17.set(COUNTERCLOCKWISE, RPM, PULSE);
-        // // while(digitalRead(LimHome) == HIGH)
-        // // {
-        // //     Nema17.moveTo(HOME);   
-        // //     Nema17.runSpeed();
-        // //     HOME++;
-        // //     delay(5);
-        // // }
-        // Nema17.setCurrentPosition(-10);
-        // Nema17.moveTo(0);
     }
 
     void loop()
@@ -337,13 +306,6 @@
 
             Serial.print("Pressed \n");
         }
-
-        // if (pLong == 1) //User pressed the knob from more than half second
-        // {
-        //     Serial.println("half Sec Long Pushed");
-        //     DCmotorControl("Despence...", 2000);
-        //     //menu.displayNotification("Despending...", 2000);
-        // }
     }
 
     /*#########################################################*/
@@ -364,15 +326,6 @@
         menu.displayNotification(integerToCharPtr(analogValue), 500);
         Serial.println(analogRead(A0));
     }
-
-    // void DCmotorControl(String message, int _delay)
-    // {
-    //     turnDCmotorON();
-    //     message.toCharArray(tempCharPtr, sizeof(tempCharPtr));
-    //     menu.displayNotification(tempCharPtr, 2000);
-    //     delay(_delay);
-    //     turnDCmotorOFF();
-    // }
 
 
     void resetCallback(uint8_t pos)
@@ -426,8 +379,8 @@
 
     /*Dispense operates DC MOTOR and STEPPER MOTOR to deploy N number of balls*/
     int Dispense(int n){
-    for (size_t i = 0; i < n; i++)
-    {
+        for (size_t i = 0; i < n; i++)
+        {
         if(Deploy() == -1){
             //UnJam(-1);
             if(Attempts >= MaxAttempts){
@@ -436,98 +389,34 @@
             Attempts++;
             i--;
         }
+        }
+        return 0; //success
     }
-    return 0; //success
-    }
-    /*
-    int UnJam(int DIR){
-    switch(DIR){
-        case ClOCKWISE:        
-    //        //Nema17.set(COUNTERClOCKWISE, RPM, PULSE);
-    //        for (size_t i = 0; i < 20; i++)
-    //        {
-    //            Nema17.run();
-    //        }
-    //        //Nema17.set(ClOCKWISE, RPM, PULSE);
-    //        for (size_t i = 0; i < 20; i++)
-    //        {
-    //            Nema17.run();
-    //        }
-            break; //Start movement into the counterclockwise direction
-        case COUNTERClOCKWISE: 
-    //        //Nema17.set(ClOCKWISE, RPM, PULSE);
-    //        for (size_t i = 0; i < 20; i++)
-    //        {
-    //            Nema17.run();
-    //        }
-    //        //Nema17.set(COUNTERClOCKWISE, RPM, PULSE);
-    //        for (size_t i = 0; i < 20; i++)
-    //        {
-    //            Nema17.run();
-    //        }
-            break; //Start movement into the clockwise direction
-        default: 
-    //        //Nema17.set(COUNTERClOCKWISE, RPM, PULSE);
-    //        for (size_t i = 0; i < 20; i++)
-    //        {
-    //            Nema17.run();
-    //        }
-    //        //Nema17.set(ClOCKWISE, RPM, PULSE);
-    //        for (size_t i = 0; i < 20; i++)
-    //        {
-    //            Nema17.run();
-    //        }        
-    //        //Nema17.set(COUNTERClOCKWISE, RPM, PULSE);
-    //        for (size_t i = 0; i < 20; i++)
-    //        {
-    //            Nema17.run();
-    //        }
-    //        //Nema17.set(ClOCKWISE, RPM, PULSE);
-    //        for (size_t i = 0; i < 20; i++)
-    //        {
-    //            Nema17.run();
-    //        }
-            break; //Jiggle movement
-    }
-    }
-    */
+
 
     /*Deploy operates DC MOTOR and STEPPER MOTOR to deploy 1 ball*/
     int Deploy(){
-    /* Starting at home position 0 step 100 steps to delpoy position then ste*/
-    uint8_t Jammed = 5;
-    uint8_t JamCount = 0;
-    TurnOnDCMotor();
-    //Nema17.set(ClOCKWISE, RPM, PULSE);
-    Nema17.moveTo(100);
-    while(Nema17.distanceToGo() != 0 /*&& digitalRead(LimDeploy) == HIGH*/){    
-        // if(CheckJam()){
-        //   Unjam(ClOCKWISE);
-        //   JamCount++;
-        // }
-        // if(JamCount >= Jammed){
-        //   return -1;
-        // }
+        /* Starting at home position 0 step 100 steps to delpoy position then ste*/
+        uint8_t Jammed = 5;
+        uint8_t JamCount = 0;
+        TurnOnDCMotor();
+        //Nema17.set(ClOCKWISE, RPM, PULSE);
+        Nema17.moveTo(100);
+        while(Nema17.distanceToGo() != 0 /*&& digitalRead(LimDeploy) == HIGH*/){    
+
         Nema17.runSpeed();
-    }
-    delay(1000);
-    TurnOffDCMotor();
-    JamCount = 0;
-    //Nema17.set(COUNTERClOCKWISE, RPM, PULSE);
-    Nema17.moveTo(0);
+        }
+        delay(1000);
+        TurnOffDCMotor();
+        JamCount = 0;
+        //Nema17.set(COUNTERClOCKWISE, RPM, PULSE);
+        Nema17.moveTo(0);
     while(Nema17.distanceToGo() != 0/* && digitalRead(LimHome) == HIGH*/)
-    {
-        // if(CheckJam()){
-        //   Unjam(COUNTERClOCKWISE);
-        //   JamCount++;
-        // }
-        // if(JamCount >= Jammed){
-        //   return -1;
-        //}
+        {
         Nema17.runSpeed();
-    }
-    delay(1000);
-    return 0; //success
+        }
+        delay(1000);
+        return 0; //success
     }
 
     int CheckJam(){
@@ -542,18 +431,37 @@
     } 
 
     int TurnOffDCMotor(){
-    digitalWrite(DCM1, LOW);
-    digitalWrite(DCM2, LOW);  
+        digitalWrite(DCM1, LOW);
+        digitalWrite(DCM2, LOW);  
     } 
 
     int TurnOnDCMotor(){
-    digitalWrite(DCM1, HIGH);
-    digitalWrite(DCM2, LOW);  
-    } 
-
+        digitalWrite(DCM1, HIGH);
+        digitalWrite(DCM2, LOW);  
+    }
+            </xmp>
             </code>
             </pre>
             </div>
+            
+            <div class="subHeader">System Process</div>
+            <div class="text">
+                <p>&ensp;&ensp;Normal operation of our device will follow the state diagram shown in Figure. A main ON/OFF switch controls the initial power state of the device. Starting in the OFF position toggling the switch into the ON position will activate the device into the ON state where various menu items are displayed on the LCD.
+                    <br>
+                    Rotating the knob allows the user to navigate to the different menu items. As shown in the state diagram, the first item in the menu is the title which does not have any method for pressing the knob thus preventing an unintentional click by the user. 
+                    <br>
+                    Rotating the knob clockwise one tick puts the cursor on the Dispense keyword which lets the user initiate the deployment of the ball if the knob is pressed. Another clockwise rotation puts the cursor on the Unjam keywork, letting the user know that pressing the knob will initiate the unjamming procedure. Rotating the knob clockwise again puts the cursor at the Calibrate keyword, so pressing the knob at this position initiates the photocell calibration according to the room ambient light. 
+                    <br>
+                    Finally, rotating the knob clockwise one tick puts the cursor at the “About” keyword, and pressing the knob at this position lets the user navigate an “About” submenu. 
+                    <br>
+                    When the user selects an operation on the submenu, the knob is disabled, and the bottom row of the LCD displays a notification message regarding the operation in progress. 
+                    <br>
+                    At any position on the menu, a laser pointer aimed at the bullseye on the device exterior or a long press, more than 0.5 second, to the knob triggers a dispense operation asynchronously. During any deployment operation, the system can detect a jam and start an unjam procedure before continuing the operation. An unjam procedure can occur a maximum of ten times per dispense; otherwise, a failure flag is returned from the dispense state. If the dispense operation completes without triggering the unjam procedure the maximum amount then it returns a success flag. 
+                    <br>
+                    At any point the user can turn the device off by toggling the main power switch into the OFF position.
+                </p>
+            </div>
+            <img src="./Images/firmware/contentImages/State Diagram v2.png" alt="State Diagram">
         </div>
         
         <footer class="footer" id="footer">

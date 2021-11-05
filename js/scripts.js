@@ -147,17 +147,22 @@ function closeForm() {
 // }
 
 
+// referenced from:
 // https://www.prowaretech.com/Computer/JavaScript/AddLineNumbersToPre
 function addLineClass (pre) {
-    var lines = pre.innerText.split("\n"); // can use innerHTML also
-    // console.log(pre.childNodes.length);
+    var lines = pre.innerHTML.split("\n");
+    // console.log(pre.childNodes.length , lines.length);
+    // console.log(lines.length); //511
+    // console.log(pre.childNodes.length); //3
     while(pre.childNodes.length > 0) {
         pre.removeChild(pre.childNodes[0]);
     }
-    for(var i = 0; i < lines.length; i++) {
+    //different indicies to accomidate for xmp and code
+    for(var i = 2; i < lines.length-3; i++) {
         var span = document.createElement("span");
         span.className = "line";
-        span.innerText = lines[i]; // can use innerHTML also
+        span.innerHTML = lines[i]; 
+        // console.log(span.innerHTML);
         pre.appendChild(span);
         pre.appendChild(document.createTextNode("\n"));
     }
