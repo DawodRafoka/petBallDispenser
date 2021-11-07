@@ -17,6 +17,7 @@ purple: #2D142C rgb(45, 20, 44)
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+  
 }
 
 html,
@@ -27,7 +28,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: #2d142c;
-
+  /* min-width: 440px */
   /* min-width: 730px; */
 }
 
@@ -119,7 +120,10 @@ footer {
   transform: translate(-50%, -50%);
   width: 20rem;
   height: 38rem;
-  /* z-index: inherit; */
+  
+  opacity: 80%;
+  display: flex;
+  justify-content: center;
 }
 
 .mainTitle h1 {
@@ -177,7 +181,7 @@ footer {
   bottom: 0;
 }
 
-/* index.html background */
+/*************  index.html background ************/
 .mainbgImage {
   background: url("../Images/main/mainbgImage.png") no-repeat center;
   background-size: cover;
@@ -232,12 +236,6 @@ footer {
 
 /* mechanical.html */
 
-.mechanicalTitle {
-  left: 45%;
-  opacity: 80%;
-}
-
-
 .mainMechanical {
   background: url("../Images/mechanical/base.png") no-repeat center;
   background-size: cover;
@@ -283,8 +281,10 @@ footer {
 /* electrical.html */
 
 .electricalTitle {
-  left: 45%;
-  opacity: 80%;
+  /* top: 15%; */
+  /* left: 38%; */
+  transform: skew(2deg, 9deg) translateX(-190px) translateY(-290px);
+  z-index: 5;
 }
 
 
@@ -331,11 +331,6 @@ footer {
 }
 
 /************************** firmware.html ****************************/
-
-.firmwareTitle {
-  left: 45%;
-  opacity: 80%;
-}
 
 .mainFirmware {
   background: url("../Images/firmware/mainFirmware.png") no-repeat center;
@@ -478,6 +473,49 @@ code, pre {
 
 
 /************************** about.html ****************************/
+
+.mainAbout {
+  background: url("../Images/about/mainAbout.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-600px) scale(3); /*Slowest scroll*/
+  z-index: 1; /*First Layer*/
+}
+
+.aboutxs {
+  background: url("../Images/about/xs.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-450px) scale(2.5); /*Scroll Slower*/
+  opacity: 65%;
+  filter: blur(10px);
+  z-index: 2; /*Second Layer*/
+}
+
+.abouts {
+  background: url("../Images/about/s") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-300px) scale(2); /*Scroll Slower*/
+  opacity: 55%;
+  filter: blur(15px);
+  z-index: 3; /*Third Layer*/
+}
+
+.aboutl {
+  background: url("../Images/about/l.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-100px) scale(1.4); /*Normal Scrolling*/
+  opacity: 25%;
+  filter: blur(18px);
+  z-index: 4; /*Forth Layer*/
+}
+
+.aboutxl {
+  background: url("../Images/about/lx.png") no-repeat center;
+  background-size: contain;
+  transform: translateZ(100px) scale(1); /*Normal Scrolling*/
+  opacity: 35%;
+  filter: blur(25px);
+  z-index: 5; /*Fifth Layer*/
+}
 
 .aboutTitle {
   opacity: 80%;
