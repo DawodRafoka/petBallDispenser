@@ -536,6 +536,12 @@ code, pre {
   margin-bottom: 4rem;
 }
 
+.portrait:hover {
+  border-radius: 15%;
+  transform: scale(1.8);
+  transition: all 200ms ease-in-out;
+}
+
 .socialMedia {
   margin-top: 2rem;
   display: flex;
@@ -793,7 +799,7 @@ code, pre {
 } */
 
 @media (min-width: 850px) {
-  
+
   .flex-container {
     margin-left: 2rem;
     flex-direction: row;
