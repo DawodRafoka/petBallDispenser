@@ -174,4 +174,3 @@ function showLines() {
         addLineClass(pres[i]);
     }
 }
-// }, false);
