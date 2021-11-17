@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Design</title>
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/style.css') }}">
+</head>
+<body>
+    
+    {% extends "template.html" %}
+    {% block content %}
+            <div class="mainTitle electricalTitle">
+                <h1>ELECTRICAL</h1>
+            </div>
+        </div>
+        <div class="groupParallax">
+            <!-- Images go here -->
+            <div class="layerParallax mainElectrical"></div>
+            <div class="layerParallax uiPCB"></div>
+            <div class="layerParallax mainPCB"></div>
+            <div class="layerParallax dcMotor"></div>
+            <div class="layerParallax stepper"></div>
+            <!-- Transparent Navigation Bar -->
+            
+        </div>
+        <div class="groupParallax gridContainer">
+            <div class="subHeader">
+                <p>A brain needs a body to operate!<br>Our device's electrical portion consists of PCBs, motors, drivers, passive/active components, wires, and of course, the Arduino</p>
+            </div>
+            
+            <div class="text">
+                <h2>Main PCB</h2>
+                <p> The PCB is powered by a 12V DC connection at the connector J9. The power is fed to a switch to regulate when the user turns the device on or off. The 12V power is run on a line itself while also running through two voltage regulators, U2 and U3, parallel to this. On the 12V line, filter capacitor C4 to reduce the effect of low-frequency, high energy transients.</p>
+            </div>
+            <img src={{ url_for('static',     filename='Images/electrical/contentImages/mainPCB.png') }} alt="3D Model">
+            
+            <div class="text">
+                <h2>User Interface PCB</h2>
+                <p> The schematic diagram for the PCB design of the User Interface (UI). The PCB will be powered by the connections from the PCB in Figure 2. The User Interface PCB is the slave to the PCB in Figure 2. The User interface PCB holds the compantanes that would allow the user to control the machine. The LCD is connected to J5 (female pins), the rotary encoder connected to J6 (female pins) ,the LED is connected to J3 (female pins), the switch is connected to J4 (female pins) and the Photocell is connected to J2(female pins). They would connect to the Male pins that are on the master PCB like a piece of lego to be controlled by the arduino. </p>
+            </div>
+            <img src={{ url_for('static',     filename='Images/electrical/contentImages/uiPCB.png') }} alt="3D Model">
+
+            <div class="text">
+                <h2>Initial Wiring Diagram</h2>
+                <p>Our initial wiring diagram consisted of ......</p>
+            </div>
+            <img src={{ url_for('static',     filename='Images/electrical/contentImages/initialWiringDiagram.png') }} alt="3D Model">
+
+
+            <div class="text">
+                <h2>Final Wiring Diagram</h2>
+                <p>As shown in the figure...</p>
+            </div>
+            <img src={{ url_for('static',     filename='Images/electrical/contentImages/finalWiringDiagram.png') }} alt="3D Model">
+
+
+        </div>
+    {% endblock %}
+</body>
+</html>

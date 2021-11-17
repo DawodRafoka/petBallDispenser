@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanical Design</title>
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',     filename='js/script.js') }}"></script>
+</head>
+
+<body>
+    {% extends "template.html" %}
+    {% block content %}
+            <div class="mainTitle mechanicalTitle">
+                <h1>MECHANICAL</h1>
+            </div>
+        </div>
+        <div class="groupParallax">
+            <!-- Images go here -->
+            <div class="layerParallax mainMechanical"></div>
+            <div class="layerParallax enclusure"></div>
+            <div class="layerParallax connecter"></div>
+            <div class="layerParallax hopper"></div>
+            <div class="layerParallax lid"></div>
+            <!-- Transparent Navigation Bar -->
+        </div>
+        <div class="groupParallax gridContainer">
+            <div class="subHeader">
+                <p>All the Mechanical designs were created with SolidWorks 2021<br>3D printed with a personally modifed printer</p>
+            </div>
+
+            <div class="text">
+                <h2>Thank you for visiting our webpage!</h2>
+                <p>You can scroll through the pages to learn more about our project</p>
+                <a id="backToTop" href="../petBallDispenser/Files/MechanicalParts/Connecting_Bar.SLDPRT" class="btn" onclick="scrollToTop()">Scroll Up</a>
+            </div>
+            <img src="{{ url_for('static',     filename='Images/imageSample.png') }}" alt="3D Model">
+
+        </div>
+
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Ball Dispenser</title>
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/style.css') }}">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="{{ url_for('static',     filename='js/script.js') }}"></script>
+</head>
+<body>
+    {% extends "template.html" %}
+    {% block content %}
+    
+        <div class="mainTitle indexTitle">
+            <h1>Pet Ball</h1>
+            <h1>Dispenser</h1>
+        </div>
+    </div>
+        
+
+    <div class="groupParallax">
+        <!-- Images go here -->
+        <div class="layerParallax mainbgImage"></div>
+        <div class="layerParallax pingpongxs"></div>
+        <div class="layerParallax pingpongs"></div>
+        <div class="layerParallax pingpongl"></div>
+        <div class="layerParallax pingpongxl"></div>
+        <div class="layerParallax pingpongxxl"></div>
+        <!-- Transparent Navigation Bar -->
+    </div>
+    <div class="groupParallax gridContainer">
+        <div class="subHeader">
+            <p>Our Created Device, the Pet Ball Dispenser, is a product that will dispense regular sized ping pong balls wen the user shines a laser on the device's photocell or uses the built-in multifunction knob</p>
+        </div>
+        
+        
+        <div id="youtube" class="text">
+            <h2>Watch it in action!</h2>
+            <p>This video demonstrates the device's functionality</p>
+        </div>
+        <div class="videoContainer">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/FTmKMXAFOr0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        
+        <div class="text">
+            <h2>Thank you for visiting our webpage!</h2>
+            <p>You can scroll through the pages to learn more about our project</p>
+            <a id="backToTop" href="#" class="btn" onclick="scrollToTop()">Scroll Up</a>
+        </div>
+        <img src="{{ url_for('static',     filename='Images/electrical/contentImages/imageSample.png') }}" alt="3D Model">
+        
+        <div class="text">
+            <h2>Thank you for visiting our webpage!</h2>
+            <p>You can scroll through the pages to learn more about our project</p>
+            <a id="backToTop" href="#" class="btn" onclick="scrollToTop()">Scroll Up</a>
+        </div>
+        <img src="{{ url_for('static',     filename='Images/electrical/contentImages/imageSample.png') }}" alt="3D Model">
+    
+    </div>
+    
+    {% endblock %}
+    <!-- <section class="overflow"></section> -->
+</body>
+</html>
