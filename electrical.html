@@ -13,8 +13,9 @@
     <div class="wrapper" id="bg"> 
         <div class="layerParallax hero-text" id="topNav">
             <a href="./index.html" id="mainLogo">Senior Design | 2021</a>
-            <ul class="flex-container">
+            <ul id="navBar" class="flex-container">
                 <li id="suggestions" class="btn"><a onclick="showForm()">Suggestions?</a></li>
+                <li><a href="./index.html">Main</a></li>
                 <li><a href="./mechanical.html">Mechanical</a></li>
                 <li><a href="./electrical.html">Electrical</a></li>
                 <li><a href="./firmware.html">Firmware</a></li>
@@ -36,31 +37,31 @@
         </div>
         <div class="groupParallax gridContainer">
             <div class="subHeader">
-                <p>A brain needs a body to operate!<br>Our device's electrical portion consists of PCBs, motors, drivers, passive/active components, wires, and of course, the Arduino</p>
+                <p>A brain needs a body to operate!<br>Our device's electrical portion consists of PCBs, motors, drivers, passive/active components, wires, and of course, the Arduino Due</p>
             </div>
             
             <div class="text">
                 <h2>Main PCB</h2>
-                <p> The PCB is powered by a 12V DC connection at the connector J9. The power is fed to a switch to regulate when the user turns the device on or off. The 12V power is run on a line itself while also running through two voltage regulators, U2 and U3, parallel to this. On the 12V line, filter capacitor C4 to reduce the effect of low-frequency, high energy transients.</p>
+                <p> The main PCB is responsible for receiving a 12V input from the 120ACV-12DCV and distributing the accurate voltage and current to all the components through voltage regulators and passive components <br>It is also the housing for the major components such as the Arduino Due, power connector, and motor drivers.</p>
             </div>
             <img src="./Images/electrical/contentImages/mainPCB.png" alt="3D Model">
             
             <div class="text">
                 <h2>User Interface PCB</h2>
-                <p> The schematic diagram for the PCB design of the User Interface (UI). The PCB will be powered by the connections from the PCB in Figure 2. The User Interface PCB is the slave to the PCB in Figure 2. The User interface PCB holds the compantanes that would allow the user to control the machine. The LCD is connected to J5 (female pins), the rotary encoder connected to J6 (female pins) ,the LED is connected to J3 (female pins), the switch is connected to J4 (female pins) and the Photocell is connected to J2(female pins). They would connect to the Male pins that are on the master PCB like a piece of lego to be controlled by the arduino. </p>
+                <p>The sole purpose of the UI PCB was to act as a holding station for the UI components such as the LCD, Multifunction Knob, Power Switch, and LED power indicator.<br>This PCB does not contain and passive components as all power regulations are done in the Main PCB which connects to this board with one ribbon cable. </p>
             </div>
             <img src="./Images/electrical/contentImages/uiPCB.png" alt="3D Model">
 
             <div class="text">
                 <h2>Initial Wiring Diagram</h2>
-                <p>Our initial wiring diagram consisted of ......</p>
+                <p>Initially, during prototype phase, we focused on the idea that both be connected from one part only hence the idea of male-female connections shown below. We later realized that it is impractical to debug and setup, so we went with the ribbon cable connection.<br>Also, at this point of the project, the DC motor is not included as it was a stretch goal. It is also worth to mention that the motor did not fit as intended in the inclosure, so we had to adjust the Main PCB to account for the Stepper motor housing. </p>
             </div>
             <img src="./Images/electrical/contentImages/initialWiringDiagram.png" alt="3D Model">
 
 
             <div class="text">
                 <h2>Final Wiring Diagram</h2>
-                <p>As shown in the figure...</p>
+                <p>After all the necessary adjustment, the figure below shows the final wiring diagram of the project with all the edge cases being accounted for.<br>The connection to the 120ACV-12DCV adapter is not shown in the diagram below because it is oriented to the right side of the device. <br>It can be noticed that the DC motor wires look off, but they are actually routed through their designated tunnel.</p>
             </div>
             <img src="./Images/electrical/contentImages/finalWiringDiagram.png" alt="3D Model">
 
