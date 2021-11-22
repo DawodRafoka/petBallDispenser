@@ -78,7 +78,6 @@ function showForm() {
 function closeForm() {
     // document.getElementById("popupForm").style.display = "none";
     var blur = document.getElementById("bg");
-    
     popupForm.style.display = "none";
     // popupForm.classList.toggle("active");
     blur.classList.toggle("active");

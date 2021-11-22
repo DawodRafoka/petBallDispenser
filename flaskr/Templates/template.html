@@ -53,11 +53,26 @@
             <li><a href="#">About US</a></li>
         </ul>
     </footer> -->
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+        <p class="{{ category }}">{{ message }}</p>
+    {% endfor %}
     <!-- Pop up form-->
     <div class="formContainer" id="popupForm">
         <label for="popupForm" class="closeBtn" onclick="closeForm()">X</label>
         <h2>Your suggestions and feedback make us better engineers!</h2>
-        <form name = "suggestionsForm" onsubmit="return validateForm()" action="#">
+        <form name = "suggestionsForm" method="post">
+        {{ form.csrf_token() }}
+
+        {% for field in form if field.name != "csrf_token" %}
+            <p>{{ field.label() }}</p>
+            <p>{{ field }}
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+        </form>
+        <!-- <form name = "suggestionsForm" onsubmit="return validateForm()" action="#">
             <label for="fname">First Name</label>
             <input type="text" id="fname" name="fname">
             <label for="lname">Last Name</label>
@@ -68,7 +83,7 @@
             <textarea type="text" id="comments" name="comments"></textarea>
             <button type="submit" class="btn" id="submit">Submit</button>
             <div class="mailTo">You may also email us at: <a href="mailto:drafoka4124@sdsu.edu">drafoka4124@sdsu.edu</a></div>
-        </form>
+        </form> -->
     </div>
     <!-- <section class="overflow"></section> -->
 </body>
