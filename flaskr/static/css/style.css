@@ -126,7 +126,6 @@ footer {
   transform: translate(-50%, -50%);
   width: 20rem;
   height: 38rem;
-  
   opacity: 80%;
   display: flex;
   justify-content: center;
@@ -135,9 +134,9 @@ footer {
 .mainTitle h1 {
   font-family: Bebas, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
     Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: rgba(238, 69, 64, 0.8);
-  -webkit-text-stroke: 2px rgba(81, 10, 50, 0.3);
-  text-shadow: rgba(235, 119, 11, 0.35) 0 0 20px;
+  color: rgba(238, 69, 64, 0.9);
+  /* -webkit-text-stroke: 2px rgba(81, 10, 50, 0.3); */
+  text-shadow: -1px -1px 0 #eb770b, 1px -1px 0 rgba(0, 0, 0, 0.418), -1px 1px 0 rgba(0, 0, 0, 0.822), 1px 1px 0 #eb770b70;
   position: absolute;
   font-size: 4rem;
 }
@@ -654,11 +653,11 @@ code, pre {
   background-color: #eb770b;
 }
 
-#popupForm.active {
+/* #popupForm.active {
   visibility: visible;
   opacity: 0;
   transition: 0.5s;
-}
+} */
 
 .formContainer {
   display: none;
@@ -797,7 +796,7 @@ code, pre {
   .hero-text {background-size: contain;}
 } */
 
-@media (min-width: 850px) {
+@media (min-width: 885px) {
 
   .flex-container {
     margin-left: 2rem;
@@ -850,7 +849,18 @@ code, pre {
 }
 
 @media (max-width: 400px) {
-  .hero-text a {
+  html, body {
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  .flex-container {
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    justify-content: center;
+  }
+  #mainLogo {
     display: none;
   }
 }
