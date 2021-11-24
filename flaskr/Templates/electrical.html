@@ -35,12 +35,14 @@
             <div class="text">
                 <h2>Main PCB</h2>
                 <p> The PCB is powered by a 12V DC connection at the connector J9. The power is fed to a switch to regulate when the user turns the device on or off. The 12V power is run on a line itself while also running through two voltage regulators, U2 and U3, parallel to this. On the 12V line, filter capacitor C4 to reduce the effect of low-frequency, high energy transients.</p>
+                <a id="backToTop" href="{{ url_for('download', Folder='Electrical', FileName='MainPCBSchematic.SLDASM') }}" class="btn" >Download</a>
             </div>
             <img src={{ url_for('static',     filename='Images/electrical/contentImages/mainPCB.png') }} alt="3D Model">
             
             <div class="text">
                 <h2>User Interface PCB</h2>
                 <p> The schematic diagram for the PCB design of the User Interface (UI). The PCB will be powered by the connections from the PCB in Figure 2. The User Interface PCB is the slave to the PCB in Figure 2. The User interface PCB holds the compantanes that would allow the user to control the machine. The LCD is connected to J5 (female pins), the rotary encoder connected to J6 (female pins) ,the LED is connected to J3 (female pins), the switch is connected to J4 (female pins) and the Photocell is connected to J2(female pins). They would connect to the Male pins that are on the master PCB like a piece of lego to be controlled by the arduino. </p>
+                <a id="backToTop" href="{{ url_for('download', Folder='Electrical', FileName='UIPCBSchematic.SLDASM') }}" class="btn" >Download</a>
             </div>
             <img src={{ url_for('static',     filename='Images/electrical/contentImages/uiPCB.png') }} alt="3D Model">
 
