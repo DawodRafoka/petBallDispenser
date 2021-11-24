@@ -105,7 +105,7 @@ def download(Folder, FileName):
         cursor.execute(query, args).commit()
         
     elif Folder == 'Firmware':
-        query = """INSERT INTO Firmware (SessionId, File_Name,File_Path) VALUES(?,?,?)"""
+        query = """INSERT INTO Firmware (SessionId, Firmware_Name, Firmware_Path) VALUES(?,?,?)"""
         args = (session['SessionId'],FileName,safe_path)
         cursor.execute(query, args).commit()
     else:
