@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Ball Dispenser Parent Template</title>
     <link rel="stylesheet" href="{{ url_for('static',     filename='css/style.css') }}">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
     <script type="text/javascript" src="{{ url_for('static',     filename='js/scripts.js') }}"></script>
 </head>
 <body>
@@ -27,33 +26,9 @@
 
         <footer class="footer" id="footer">
             <p class="copyright">&copy San Diego State University  •  Senior Design 2021  •  Team 8</p>
-            <!-- <ul class="extraLinks">
-                <li><a href="#">Mechanical Design</a></li>
-                <li><a href="#">Electrical Design</a></li>
-                <li><a href="#">Firmware</a></li>
-                <li><a href="#">About US</a></li>
-            </ul> -->
         </footer>
-        
-        <!-- <img src="./Images/coverImage19201920.png" alt="Cover Picture" class="CoverPicture">
-        <div class="textwrapper">
-            <h1 class="headline">Pet Ball Dispenser</h1>
-            <h2 class="sub-headline">Senior Design Project</h2>
-            
-        </div> -->
-
-        
-    
     </div>
-    <!-- <footer class="footer" id="footer">
-        <p class="copyright">&copy San Diego State University  •  Senior Design 2021  •  Team 8</p>
-        <ul class="extraLinks">
-            <li><a href="#">Mechanical Design</a></li>
-            <li><a href="#">Electrical Design</a></li>
-            <li><a href="#">Firmware</a></li>
-            <li><a href="#">About US</a></li>
-        </ul>
-    </footer> -->
+
     {% for category, message in get_flashed_messages(with_categories=true) %}
         <p class="{{ category }}">{{ message }}</p>
     {% endfor %}
@@ -65,27 +40,17 @@
         {{ form.csrf_token() }}
 
         {% for field in form if field.name != "csrf_token" %}
-            <p>{{ field.label() }}</p>
-            <p>{{ field }}
-                {% for error in field.errors %}
-                    {{ error }}
-                {% endfor %}
-            </p>
+            {% if field.name != "submit" %}
+                <p>{{ field.label() }}</p>
+                <p>{{ field }}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
+            {% endif %}
         {% endfor %}
+        {{ form.submit(class_='btn') }}
         </form>
-        <!-- <form name = "suggestionsForm" onsubmit="return validateForm()" action="#">
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" name="fname">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="lname">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email">
-            <label for="comments">Comments<span class="commentNode"> You may expand the comment box</span></label>
-            <textarea type="text" id="comments" name="comments"></textarea>
-            <button type="submit" class="btn" id="submit">Submit</button>
-            <div class="mailTo">You may also email us at: <a href="mailto:drafoka4124@sdsu.edu">drafoka4124@sdsu.edu</a></div>
-        </form> -->
     </div>
-    <!-- <section class="overflow"></section> -->
 </body>
 </html>

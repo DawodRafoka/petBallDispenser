@@ -435,6 +435,7 @@
             </xmp>
             </code>
             </pre>
+            <a id="downloadbtn" href="{{ url_for('download', Folder='Firmware', FileName='MainProgram.ino') }}" class="btn" >Download .ino Program</a>
             </div>
             
             <div class="subHeader"><br><br>System Process</div>
@@ -453,7 +454,6 @@
                     <br>
                     At any point the user can turn the device off by toggling the main power switch into the OFF position.
                 </p>                
-                <a id="backToTop" href="{{ url_for('download', Folder='Firmware', FileName='MainProgram.ino') }}" class="btn" >Download Program</a>
             </div>
             <img src="{{ url_for('static',     filename='Images/firmware/contentImages/State Diagram v3.svg') }}" alt="State Diagram">
         </div>

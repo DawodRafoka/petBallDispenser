@@ -11,14 +11,15 @@ app.config['Parts'] =  "../flaskr/static/Parts"
 conn = None
 try:
     conn = pyodbc.connect('Driver={SQL Server};'
-                    'Server=JBUNNELLSTUDIO;'
+                    'Server=DESKTOP-8DKJ560;'
                     'Database=SeniorDesign;'
                     'Trusted_Connection=yes;')
+    cursor = conn.cursor()
     print("SQL Database connection successful")
 except pyodbc.Error as err:
     print("Error: '{err}'",err)
     exit()
-cursor = conn.cursor()
+
 @app.before_first_request
 def StartSession():
     cursor.execute('SELECT * FROM Sessions')
@@ -116,18 +117,18 @@ def download(Folder, FileName):
         abort(404)
 
 
-def create_server_connection():
-    conn = None
-    try:
-        conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=JBUNNELLSTUDIO;'
-                      'Database=SeniorDesign;'
-                      'Trusted_Connection=yes;')
-        print("SQL Database connection successful")
-    except pyodbc.Error as err:
-        print("Error: '{err}'",err)
-        exit()
-    return conn
+# def create_server_connection():
+#     conn = None
+#     try:
+#         conn = pyodbc.connect('Driver={SQL Server};'
+#                       'Server=JBUNNELLSTUDIO;'
+#                       'Database=SeniorDesign;'
+#                       'Trusted_Connection=yes;')
+#         print("SQL Database connection successful")
+#     except pyodbc.Error as err:
+#         print("Error: '{err}'",err)
+#         exit()
+#     return conn
         
 def getTest(conn):
     print("Get Test")
@@ -140,7 +141,5 @@ def close_db(conn):
     if conn is not None:
         conn.close()
     
-
-
 if __name__ == '__main__':
     app.run(debug=True)

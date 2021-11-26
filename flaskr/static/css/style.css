@@ -285,6 +285,7 @@ footer {
   z-index: -2; /*Fifth Layer*/
 }
 
+
 /* electrical.html */
 
 .electricalTitle {
@@ -553,7 +554,7 @@ code, pre {
 }
 .fa{
   padding: 0.5rem;
-  font-size: 3rem;
+  /* font-size: 1rem; */
   /* width: 2rem; */
   text-align: center;
   text-decoration: none;
@@ -585,8 +586,8 @@ code, pre {
   box-shadow: #eb770b 0 0 30px;
 }
 .othman {
-  border: 1px solid #ee4540;
-  box-shadow: #ee4540 0 0 30px;
+  border: 1px solid #ec1e5c;
+  box-shadow: #ec1e5c 0 0 30px;
 }
 
 /*Add the rest of the layers with translate -75px and scale -25*/
@@ -644,6 +645,7 @@ code, pre {
   font-weight: 600;
   transform: translateY(-4px); /*to aliegn*/
   padding: 2px 10px 2px 10px;
+  max-width: max-content;
   /* transition: all 0.1s ease-in-out; */
 }
 
@@ -712,7 +714,7 @@ code, pre {
   text-shadow: #000 0 0 2px;
 }
 
-#submit {
+.submit {
   font-size: 1.2rem;
   font-weight: 200;
   padding: 5px 0 5px 0;
@@ -722,7 +724,7 @@ code, pre {
   width: 40%;
   
 }
-#submit:hover {
+.submit:hover {
   font-weight: bold;
   color: #2d142c;
   background-color: rgba(235, 119, 11, 0.5);
