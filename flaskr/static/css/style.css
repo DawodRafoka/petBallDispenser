@@ -118,39 +118,6 @@ footer {
   margin-bottom: 0.2rem;
 }
 
-
-.mainTitle {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 20rem;
-  height: 38rem;
-  opacity: 80%;
-  display: flex;
-  justify-content: center;
-}
-
-.mainTitle h1 {
-  font-family: Bebas, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: rgba(238, 69, 64, 0.9);
-  /* -webkit-text-stroke: 2px rgba(81, 10, 50, 0.3); */
-  text-shadow: -1px -1px 0 #eb770b, 1px -1px 0 rgba(0, 0, 0, 0.418), -1px 1px 0 rgba(0, 0, 0, 0.822), 1px 1px 0 #eb770b70;
-  position: absolute;
-  font-size: 4rem;
-}
-.indexTitle h1:nth-of-type(1) {
-  font-weight: 700;
-  font-size: 5rem;
-  top: -12%;
-}
-
-.indexTitle h1:nth-of-type(2) {
-  font-weight: 800;
-  font-size: 4.05rem;
-}
-
 .wrapper {
   height: 100vh;
   overflow-x: hidden;
@@ -218,6 +185,14 @@ footer {
   z-index: 4; /*Forth Layer*/
 }
 
+.mainTitlePic {
+  background: url("../Images/main/titleMain.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-100px) scale(1.4) translateY(22px); /*Normal Scrolling*/
+  opacity: 80%;
+  z-index: 4; /*Forth Layer*/
+}
+
 .pingpongxl {
   background: url("../Images/main/pingpongxl.png") no-repeat center;
   background-size: cover;
@@ -238,10 +213,6 @@ footer {
 }
 
 /* mechanical.html */
-.mechanicalTitle {
-  transform: skew(1.5deg, 3deg) translateX(-210px) translateY(-240px) scale(0.85);
-  z-index: 5;
-}
 
 .mainMechanical {
   background: url("../Images/mechanical/base.png") no-repeat center;
@@ -256,6 +227,15 @@ footer {
   transform: translateZ(-350px) scale(2.18); /*Scroll Slower*/
   opacity: 65%;
   z-index: 2; /*Second Layer*/
+}
+
+.titleMechanical {
+  background: url("../Images/mechanical/titleMechanical.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-100px) scale(1.4); /*Normal Scrolling*/
+  opacity: 80%;
+  z-index: 4; /*Forth Layer*/
+  filter:hue-rotate(-10deg) brightness(190%);
 }
 
 .connecter {
@@ -288,12 +268,6 @@ footer {
 
 /* electrical.html */
 
-.electricalTitle {
-  transform: skew(2deg, 9deg) translateX(-190px) translateY(-300px) scale(0.9);
-  z-index: 5;
-}
-
-
 .mainElectrical {
   background: url("../Images/electrical/mainElectrical.png") no-repeat center;
   background-size: cover;
@@ -315,6 +289,14 @@ footer {
   transform: translateZ(-150px) scale(1.5);
   opacity: 45%;
   z-index: 3; 
+}
+
+.titleElectrical {
+  background: url("../Images/electrical/titleElectrical.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-100px) scale(1.4) translateY(22px); /*Normal Scrolling*/
+  opacity: 80%;
+  z-index: 4; /*Forth Layer*/
 }
 
 .stepper {
@@ -361,6 +343,14 @@ footer {
   opacity: 25%;
   filter: blur(1px);
   z-index: 3; 
+}
+
+.titleFirmware {
+  background: url("../Images/firmware/titleFirmware.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-100px) scale(1.4) translateY(22px); /*Normal Scrolling*/
+  opacity: 80%;
+  z-index: 4; /*Forth Layer*/
 }
 
 .centerCode {
@@ -505,6 +495,15 @@ code, pre {
   z-index: 3; /*Third Layer*/
 }
 
+.titleAbout {
+  background: url("../Images/about/titleAbout.png") no-repeat center;
+  background-size: cover;
+  transform: translateZ(-100px) scale(1.4) translateY(10px); /*Normal Scrolling*/
+  opacity: 80%;
+  z-index: 4; /*Forth Layer*/
+  filter: drop-shadow(20px);
+}
+
 .aboutl {
   background: url("../Images/about/l.png") no-repeat center;
   background-size: cover;
@@ -523,10 +522,6 @@ code, pre {
   z-index: 5; /*Fifth Layer*/
 }
 
-.aboutTitle {
-  opacity: 80%;
-}
-
 .portrait {
   border-radius: 50%;
   height: 20vh;
@@ -542,7 +537,7 @@ code, pre {
 }
 
 .socialMedia {
-  margin-top: 2rem;
+  margin-top: 0.3rem;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -11,7 +11,7 @@ app.config['Parts'] =  "../flaskr/static/Parts"
 conn = None
 try:
     conn = pyodbc.connect('Driver={SQL Server};'
-                    'Server=DESKTOP-8DKJ560;'
+                    'Server=DESKTOP-C6RUCSP;'
                     'Database=SeniorDesign;'
                     'Trusted_Connection=yes;')
     cursor = conn.cursor()

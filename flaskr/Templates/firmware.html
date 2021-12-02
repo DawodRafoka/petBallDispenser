@@ -14,15 +14,13 @@
     
     {% extends "template.html" %}
     {% block content %}
-            <div class="mainTitle firmwareTitle">
-                <h1>FIRMWARE</h1>
-            </div>
         </div>
         <div class="groupParallax">
             <!-- Images go here -->
             <div class="layerParallax mainFirmware"></div>
             <div class="layerParallax leftCode"></div>
             <div class="layerParallax rightCode"></div>
+            <div class="layerParallax titleFirmware"></div>
             <div class="layerParallax centerCode"></div>
             <!-- Transparent Navigation Bar -->
             
@@ -37,6 +35,7 @@
             <pre>
             <code class="language-c">
             <xmp>
+        
     // * Authors: Dawod Rafoka & James Bunnill
     // * Project: Pet Ball Dispenser
     // * Class: CompE-496 | Senior Design B
@@ -56,7 +55,7 @@
     #include <efc.h>
     #include <flash_efc.h>
     #include <AccelStepper.h>
-
+    #include <string>
 
     /*****      DEFINITIONS        ******/
     //LCD Screen
@@ -75,28 +74,29 @@
     int sensorReadRes, intensityActivationValue; //analogReadResolution can return 12bits
     byte storeToMemory[sizeof(intensityActivationValue)];
 
-
+    //Stepper Motor & Ground
+    #define ClOCKWISE 1
+    #define COUNTERClOCKWISE 0
 
 
     /*****       VARIABLES         ******/
     // STEPPER & DC MOTOR & JAM
-    float  AdcResult;
-    float  AdcResultPos;
-    float  AdcResultNeg;
-    int direction = 1;
-    int flag = 0;
     uint8_t StepPin = 5;
     uint8_t DirPin = 6;
-    uint8_t DCM1 = 50;
-    uint8_t DCM2 = 52;
-    // uint8_t LimHome = 9;
-    // uint8_t LimDeploy = 8;
+    uint8_t DCM1 = 23;
+    uint8_t DCM2 = 25;
+    uint8_t LimHome = 51;
+    uint8_t LimDeploy = 53;
+    uint8_t UnjamAmount = 400;//intally 320
+    int JamThreshold = 500;
     uint8_t Jams = 0;
     uint8_t JammedDelay = 20;
     uint8_t Attempts = 0;
     uint8_t MaxAttempts = 3;
-    int HOME = -1;
-    int DEPLOYED = 1;
+    int HOME = 1;
+    int DEPLOYED = -1;
+    int ReadyPos = -160;
+    int DeployedPos = -1800;
 
     // Initialize LcdMenu with the menu items
     const int rs = 32, en = 30, d4 = 28, d5 = 26, d6 = 24, d7 = 22;
@@ -110,8 +110,8 @@
     /***** FUNCTIONS DECLURATIONS  ******/
     void readLightSensor();
     void resetCallback(uint8_t pos);
-    // void turnDCmotorON();
-    // void turnDCmotorOFF();
+    void turnDCmotorON();
+    void turnDCmotorOFF();
     // void DCmotorControl();
     char *integerToCharPtr(int value);
     bool lightSensorCalibrate();
@@ -122,15 +122,12 @@
     // Construct the LcdMenu
     LcdMenu menu(LCD_ROWS, LCD_COLS);
 
-    // Construct the Stepper Motor Driver
-    // Stepper stepperMotor(stepsPerRevolution, stepDIR, stepSTEP);
-
     //Construct EEPROM non-volatile memory
     DueFlashStorage flashStorage;
 
     //STEPPER
     AccelStepper Nema17(AccelStepper::DRIVER, StepPin, DirPin);
-
+    void HomeStepper();
     int UnJam(int DIR);
     int Dispense(int n);
     int Deploy();
@@ -141,12 +138,12 @@
     extern MenuItem mainMenu[];
     // Initialize the main menu items
     MenuItem mainMenu[] = {ItemHeader(),
-                            MenuItem("Ball Dispenser"),
-                            MenuItem("Despense"),
-                            MenuItem("Unjam"),
-                            MenuItem("Calibrate"),
-                            ItemList("About", about, aboutLength, resetCallback),
-                            ItemFooter()};
+                        MenuItem("Ball Dispenser"),
+                        MenuItem("Despense"),
+                        MenuItem("Unjam"),
+                        MenuItem("Calibrate"),
+                        ItemList("About", about, aboutLength, resetCallback),
+                        ItemFooter()};
 
     // To track and control the rotary encoder
     unsigned int position = 0;
@@ -168,7 +165,20 @@
     {
         Serial.begin(9600);
         menu.setupLcdWithMenu(rs, en, d4, d5, d6, d7, mainMenu);
+        //STEPPER MOTOR DRIVER
+        // pinMode(stepSTEP, OUTPUT);
+        // pinMode(stepDIR, OUTPUT);
+        // pinMode(currentSensor1, INPUT);
+        // pinMode(currentSensor2, INPUT);
+
+        //DC MOTOR DRIVER
+        // pinMode(DcEN, OUTPUT);
+        // pinMode(DcDIR, OUTPUT);
+        // Turn off motors - initially
+        // turnDCmotorOFF();
+
         //Light Sensor Calibartion Initialization
+        pinMode(LIGHT_SENSOR_READ, INPUT);
 
         analogReadResolution(12); //Making the resolution 12 bits instead of 10
         //Flash is reset evertime a new code is uploaded
@@ -193,22 +203,29 @@
         }
 
         // STEPPER
-        pinMode(A1,INPUT);
-        pinMode(A2,INPUT);
-        // pinMode(LimHome,INPUT_PULLUP);
-        // pinMode(LimDeploy,INPUT_PULLUP);
+
+        pinMode(A1, INPUT);
+        pinMode(A2, INPUT);
+        pinMode(LimHome, INPUT_PULLUP);
+        pinMode(LimDeploy, INPUT_PULLUP);
         pinMode(DCM1, OUTPUT);
-        pinMode(DCM2,OUTPUT);
-        
+        pinMode(DCM2, OUTPUT);
+        pinMode(StepPin, OUTPUT);
+        pinMode(DirPin, OUTPUT);
+
         //Nema17.init();
         Nema17.setMaxSpeed(1000);
-        Nema17.setSpeed(10);
-        Nema17.setAcceleration(5);
+        Nema17.setSpeed(150);
+        Nema17.setAcceleration(1000);
+        
+        //inital homming
+        HomeStepper();
     }
 
     void loop()
     {
         //Read the values from the rotary encoder
+        int prevIntensityActivationValue = 0;
         r = rotary.rotate(); //0 not running, 1 CW, 2 CCW
         p = rotary.push();
         pLong = rotary.pushLong(500);
@@ -216,13 +233,13 @@
         sensorReadRes = analogRead(LIGHT_SENSOR_READ);
         if(sensorReadRes > intensityActivationValue)
         {
-            Serial.print("Light Dispensing Activated");
-            Serial.print( " | SensorRead: ");
-            Serial.print(sensorReadRes);
-            Serial.print(" | Trigger Value: ");
-            Serial.print(intensityActivationValue);
+            // Serial.print("Light Dispensing Activated");
+            // Serial.print( " | SensorRead: ");
+            // Serial.print(sensorReadRes);
+            // Serial.print(" | Trigger Value: ");
+            // Serial.print(intensityActivationValue);
             menu.displayNotification("Laser Dispense", 1);
-            Dispense(1);
+            Deploy();
         }
         
         if (r == 1)
@@ -231,8 +248,8 @@
                 position--;
 
             menu.up();
-            Serial.print(position);
-            Serial.print("CCW \n");
+            // Serial.print(position);
+            // Serial.print("CCW \n");
         }
         else if (r == 2)
         {
@@ -240,8 +257,8 @@
                 position++;
 
             menu.down();
-            Serial.print(position);
-            Serial.print("CW \n");
+            // Serial.print(position);
+            // Serial.print("CW \n");
         }
 
         if (p == 1) //User pressed the knob
@@ -253,25 +270,47 @@
                 menu.down(); menu.up(); //So Notifications don't obstruct the value
                 // DCmotorControl("Despence...", 2000);
                 menu.displayNotification("Dispensing!", 2000);
-                Dispense(1);
+                if(Deploy() == 1){                
+                    menu.displayNotification("Failed Dispense, please check mechanism", 2000);
+                    //Failed Dispense
+                }
+                else{
+                    menu.displayNotification("Success!", 2000);
+                    //Succesfull Dispense
+                }
                 break;
             case UNJAM:
                 menu.down(); menu.up(); //So Notifications don't obstruct the value
                 break;
             case CALIBRATE:
                 menu.down(); menu.up(); //So Notifications don't obstruct the value
-                Serial.print("Previous Intensity: ");
-                Serial.print(intensityActivationValue);
+                // Serial.print("Previous Intensity: ");
+                // Serial.print(intensityActivationValue);
+                prevIntensityActivationValue = intensityActivationValue;
                 menu.displayNotification("Calibrating...", 1000);
                 if (lightSensorCalibrate())
                 {
-                    delay(500); // CHECKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-                    menu.displayNotification("Done!", 1);
-
-                    Serial.print(" | ");
-                    Serial.print("New Intensity: ");
-                    Serial.print(intensityActivationValue);
-                    Serial.print("\n");
+                    delay(500);
+                    if(intensityActivationValue == prevIntensityActivationValue)
+                    {
+                    menu.displayNotification("Same Trigger!", 1);
+                    }
+                    else
+                    {
+                    char* message = "Trigger= ";
+                    char perentageChar[6];
+                    int percentage = intensityActivationValue/4096;
+                    sprintf(perentageChar, "#%04d", percentage);
+                    message = strcat(message, perentageChar);
+                    message = strcat(message, "%");
+                    menu.displayNotification(message, 1);
+                    }
+                    
+                    // Serial.print(" | ");
+                    // Serial.print("New Intensity: ");
+                    // Serial.print(intensityActivationValue);
+                    // Serial.print("\n");
+                    // menu.displayNotification("Calibrated!", 1);
                 }
                 else
                 {
@@ -297,7 +336,7 @@
                 break;
             }
 
-            Serial.print("Pressed \n");
+            // Serial.print("Pressed \n");
         }
     }
 
@@ -317,9 +356,8 @@
         analogValue = analogRead(LIGHT_SENSOR_READ);
 
         menu.displayNotification(integerToCharPtr(analogValue), 500);
-        Serial.println(analogRead(A0));
+        // Serial.println(analogRead(A0));
     }
-
 
     void resetCallback(uint8_t pos)
     {
@@ -370,68 +408,158 @@
     }
 
 
+
+    void HomeStepper(){
+    while(digitalRead(LimDeploy) == HIGH){ 
+        Nema17.moveTo(DEPLOYED); 
+        Nema17.run();
+        DEPLOYED--;
+    }
+    Nema17.stop();
+    Nema17.setCurrentPosition(0);
+    while(digitalRead(LimHome) == HIGH)
+    {
+        Nema17.moveTo(HOME);   
+        Nema17.run();
+        HOME++;
+    }
+    Nema17.stop();
+    Nema17.setCurrentPosition(0);
+    Nema17.moveTo(ReadyPos);
+    while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH){
+        Nema17.run();
+    }
+    Nema17.stop();
+
+    }
     /*Dispense operates DC MOTOR and STEPPER MOTOR to deploy N number of balls*/
     int Dispense(int n){
-        for (size_t i = 0; i < n; i++)
-        {
-        if(Deploy() == -1){
-            //UnJam(-1);
+    Attempts = 0;
+    for (size_t i = 0; i < n; i++)
+    {
+        if(Deploy() == 1){
+            UnJam(-1);
             if(Attempts >= MaxAttempts){
-                return -1;// Failed to dispesne
+                return 1;// FAiled to dispesne
             }
             Attempts++;
-            i--;
         }
-        }
-        return 0; //success
+        i--;
+    }
+    return 0; //success
     }
 
+    int UnJam(int DIR){
+    switch(DIR){
+        case ClOCKWISE:  
+            Nema17.move(320);
+            while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
+            Nema17.run();
+            }
+            Nema17.stop();
+            break; //Start movement into the counterclockwise direction
+        case COUNTERClOCKWISE: 
+            Nema17.move(-320);
+            while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
+            Nema17.run();
+            }
+            Nema17.stop();
+
+            break; //Start movement into the clockwise direction
+        default: 
+            
+            Nema17.move(-320);
+            while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
+            Nema17.run();
+            }
+            Nema17.stop();
+            Nema17.move(320);
+            while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
+            Nema17.run();
+            }
+            Nema17.stop();
+            break; //Jiggle movement
+    }
+    return 0;
+    }
 
     /*Deploy operates DC MOTOR and STEPPER MOTOR to deploy 1 ball*/
     int Deploy(){
-        /* Starting at home position 0 step 100 steps to delpoy position then ste*/
-        uint8_t Jammed = 5;
-        uint8_t JamCount = 0;
-        TurnOnDCMotor();
-        //Nema17.set(ClOCKWISE, RPM, PULSE);
-        Nema17.moveTo(100);
-        while(Nema17.distanceToGo() != 0 /*&& digitalRead(LimDeploy) == HIGH*/){    
-
-        Nema17.runSpeed();
+    /* Starting at home position 0 step 100 steps to delpoy position then ste*/
+    uint8_t Jammed = 3;
+    uint8_t JamCount = 0;
+    TurnOnDCMotor();
+    
+    Nema17.moveTo(DeployedPos);
+    while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH){    
+        if(Nema17.currentPosition() <(ReadyPos - 500)){
+            if(CheckJam()){
+            UnJam(ClOCKWISE);
+            Nema17.moveTo(DeployedPos);
+            JamCount++;      
+            }
+            if(JamCount > Jammed){
+            return 1; //Fail
+            }
         }
-        delay(1000);
-        TurnOffDCMotor();
-        JamCount = 0;
-        //Nema17.set(COUNTERClOCKWISE, RPM, PULSE);
-        Nema17.moveTo(0);
-    while(Nema17.distanceToGo() != 0/* && digitalRead(LimHome) == HIGH*/)
-        {
-        Nema17.runSpeed();
+        Nema17.run();
+    }
+    Nema17.stop();
+    delay(1000);
+    TurnOffDCMotor();  
+    JamCount = 0;
+    Nema17.moveTo(ReadyPos);
+    while(Nema17.distanceToGo() != 0 && digitalRead(LimHome) == HIGH)
+    {
+        if(Nema17.currentPosition() < (DeployedPos + 500)){
+            if(CheckJam()){
+            UnJam(COUNTERClOCKWISE);
+            Nema17.moveTo(ReadyPos);
+            JamCount++;           
+            }
+            if(JamCount > Jammed){
+            return 1; //Fail
+            }
         }
-        delay(1000);
-        return 0; //success
+        Nema17.run();
+    }
+    Nema17.stop();
+    //delay(1000);
+    return 0; //success
     }
 
     int CheckJam(){
-        if(Jams >= JammedDelay){
+    //  Serial.print("Checking Jam"); 
+    int ADCResult = (analogRead(A2) -  analogRead(A1));
+    //  Serial.print("ADCResult: ");  
+    //  Serial.print(ADCResult);
+    if(JamThreshold < ADCResult){
+        if(Jams > JammedDelay){
             Jams = 0;
             return 1;
         }
         else{
-            Jams++;
-            return 0;
-        }    
+        Jams++;
+    //      Serial.print("Jams: ");        
+    //      Serial.print(Jams);
+        return 0;      
+        }
+    } 
+    else{
+        return 0;
+    }   
     } 
 
     int TurnOffDCMotor(){
-        digitalWrite(DCM1, LOW);
-        digitalWrite(DCM2, LOW);  
+    digitalWrite(DCM1, LOW);
+    digitalWrite(DCM2, LOW);  
     } 
 
     int TurnOnDCMotor(){
-        digitalWrite(DCM1, HIGH);
-        digitalWrite(DCM2, LOW);  
-    }
+    digitalWrite(DCM1, HIGH);
+    digitalWrite(DCM2, LOW);  
+    } 
+
             </xmp>
             </code>
             </pre>
