@@ -33,14 +33,14 @@
             <div class="text">
                 <h2>Main PCB</h2>
                 <p> The main PCB is responsible for receiving a 12V input from the 120ACV-12DCV and distributing the accurate voltage and current to all the components through voltage regulators and passive components <br>It is also the housing for the major components such as the Arduino Due, power connector, and motor drivers.</p>
-                <a id="backToTop" href="{{ url_for('download', Folder='Electrical', FileName='MainPCBSchematic.SLDASM') }}" class="btn" >Download</a>
+                <a id="backToTop" href="{{ url_for('download', Folder='Electrical', FileName='Pet_Ball_Dispenser_PCB.pdf') }}" class="btn" >Download</a>
             </div>
             <img src={{ url_for('static',     filename='Images/electrical/contentImages/mainPCB.png') }} alt="3D Model">
             
             <div class="text">
                 <h2>User Interface PCB</h2>
                 <p>The sole purpose of the UI PCB was to act as a holding station for the UI components such as the LCD, Multifunction Knob, Power Switch, and LED power indicator.<br>This PCB does not contain and passive components as all power regulations are done in the Main PCB which connects to this board with one ribbon cable. </p>
-                <a id="backToTop" href="{{ url_for('download', Folder='Electrical', FileName='UIPCBSchematic.SLDASM') }}" class="btn" >Download</a>
+                <a id="backToTop" href="{{ url_for('download', Folder='Electrical', FileName='User_Input_PCB.pdf') }}" class="btn" >Download</a>
             </div>
             <img src={{ url_for('static',     filename='Images/electrical/contentImages/uiPCB.png') }} alt="3D Model">
 
