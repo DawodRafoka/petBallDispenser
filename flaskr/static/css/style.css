@@ -243,7 +243,6 @@ footer {
   background-size: cover;
   transform: translateZ(-250px) scale(1.9); /*Scroll Slower*/
   opacity: 55%;
-  /* filter: blur(6px); */
   z-index: 1; /*Third Layer*/
 }
 
@@ -252,7 +251,6 @@ footer {
   background-size: cover;
   transform: translateZ(-150px) scale(1.5); /*Normal Scrolling*/
   opacity: 45%;
-  /* filter: blur(11px); */
   z-index: -1; /*Forth Layer*/
 }
 
@@ -261,7 +259,6 @@ footer {
   background-size: cover;
   transform: translateZ(0px) scale(1); /*Normal Scrolling*/
   opacity: 35%;
-  /* filter: blur(19px); */
   z-index: -2; /*Fifth Layer*/
 }
 
@@ -302,7 +299,6 @@ footer {
 .stepper {
   background: url("../Images/electrical/stepper.png") no-repeat center;
   background-size: cover;
-  /* transform: translateZ(90px) scale(0.7);  */
   transform: translateZ(-300px) scale(2);
   opacity: 55%;
   z-index: 2;
@@ -311,7 +307,6 @@ footer {
 .dcMotor {
   background: url("../Images/electrical/dcMotor.png") no-repeat center;
   background-size: contain;
-  /* transform: translateZ(150px) scale(0.45); */
   transform: translateZ(90px) scale(0.7);
   opacity: 65%;
   z-index: 1;
@@ -330,7 +325,6 @@ footer {
 .leftCode {
   background: url("../Images/firmware/leftCode.png") no-repeat center;
   background-size: contain;
-  /* transform: translateZ(0px) scale(1);  */
   transform: translateY(120px) translateZ(130px) scale(0.8);
   opacity: 45%;
   z-index: 4; 
@@ -356,7 +350,6 @@ footer {
 .centerCode {
   background: url("../Images/firmware/centerCode.png") no-repeat center;
   background-size: cover;
-  /* transform: translateZ(90px) scale(0.7);  */
   transform: translateZ(-300px) scale(2);
   opacity: 15%;
   filter: blur(4px);
@@ -370,9 +363,6 @@ footer {
 }
 
 div .codeSegment {
-  /* align-content: center;
-  align-self: center;
-  align-items: center; */
   max-width: 80%;
   
 }
@@ -383,7 +373,6 @@ code, pre{
   direction: ltr;
   text-align: left;
   white-space:  pre;
-  /* text-justify: distribute-all-lines; */
   word-wrap: break-word;
   word-spacing: normal;
   word-break: normal;
@@ -427,7 +416,6 @@ code, pre {
   padding: 1rem;
   padding-top: 2px;
   padding-bottom: 1px; 
-  /* background: #f8f8f8; */
   background: #16001b;
   border: 1px solid #dddddd;
 }
@@ -443,7 +431,6 @@ code, pre {
   color: #ee4540;
 }
 .token.punctuation, .token.operator {
-  /* color: #393A34; */
   color: #5f96bb;
 }
 .token.entity, .token.url, .token.symbol, .token.number, 
@@ -549,17 +536,13 @@ code, pre {
 }
 .fa{
   padding: 0.5rem;
-  /* font-size: 1rem; */
-  /* width: 2rem; */
   text-align: center;
   text-decoration: none;
-  /* margin: 5px 2px; */
   border-radius: 50%;
   justify-content: center;
 }
 
 .fa:hover {
-    /* border: 1px solid #007bb5; */
     box-shadow: #007bb5 0 0 30px;
 }
 
@@ -641,7 +624,6 @@ code, pre {
   transform: translateY(-4px); /*to aliegn*/
   padding: 2px 10px 2px 10px;
   max-width: max-content;
-  /* transition: all 0.1s ease-in-out; */
 }
 
 .btn:hover {
@@ -649,12 +631,6 @@ code, pre {
   color: #2d142c;
   background-color: #eb770b;
 }
-
-/* #popupForm.active {
-  visibility: visible;
-  opacity: 0;
-  transition: 0.5s;
-} */
 
 .formContainer {
   display: none;
@@ -732,7 +708,7 @@ code, pre {
   /* background: #2D142C; */
   background: linear-gradient(
     rgb(45, 20, 44) 0%,
-    /* rgb(68, 21, 70)  50%, */ rgb(27, 7, 23) 90%,
+    rgb(27, 7, 23) 90%,
     rgb(5, 2, 5) 100%
   );
   display: flex;
@@ -745,12 +721,15 @@ code, pre {
 
 .subHeader {
   color: #eb770b;
-  /* text-shadow: rgba(238, 69, 64, 0.8) 1px 1px 1px; */
   font-size: 2rem;
   font-weight: 500;
   text-justify: distribute-all-lines;
   text-align: center;
   margin: 2rem 4rem 4rem 4rem;
+}
+
+.subHeader .actualDevice {
+  max-width: 90%;
 }
 
 .videoContainer {
@@ -774,7 +753,6 @@ code, pre {
 
 .text {
   margin-bottom: 1rem;
-  /* margin: 0 2rem 2rem 0; */
   font-size: 1rem;
   max-width: 90%;
 }
@@ -784,14 +762,6 @@ code, pre {
   line-height: 1.5rem;
   text-align: justify;
 }
-/* @media (min-width: 1200px) {
-  .mainbgImage,
-  .pingpongxl,
-  .pingpongl,
-  .pingpongs,
-  .pingpongxs,
-  .hero-text {background-size: contain;}
-} */
 
 @media (min-width: 885px) {
 
@@ -810,10 +780,8 @@ code, pre {
 
   .gridContainer {
     display: grid;
-    /* grid-column: auto; */
     grid-template-columns: 1fr 1fr;
     grid-auto-flow: dense;
-    /* grid-template-columns: max-content max-content max-content; */
     grid-column-gap: 1rem;
     align-items: center;
     text-align: left;
@@ -821,6 +789,9 @@ code, pre {
   .subHeader{
     /*To not display next to it*/
     grid-column: 1/3;
+  }
+  .subHeader .actualDevice {
+    max-width: 65%;
   }
 
   .codeSegment {

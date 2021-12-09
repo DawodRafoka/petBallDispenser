@@ -22,10 +22,15 @@ except pyodbc.Error as err:
 
 @app.before_first_request
 def StartSession():
-    cursor.execute('SELECT * FROM Sessions')
-    temp = max(cursor)
+    row = None
+    rows = cursor.execute('SELECT * FROM Sessions')
+    for row in rows:
+        temp = max(cursor)
+    if not row:
+        temp = 0
+        print("cursor was empty")
     # print(temp[0])
-    session['SessionId'] = temp[0] + 1
+    session['SessionId'] = temp + 1
     query = """INSERT INTO Sessions (SessionId) VALUES (?)"""
     args = (session['SessionId'])
     cursor.execute(query, args)
@@ -117,19 +122,6 @@ def download(Folder, FileName):
         abort(404)
 
 
-# def create_server_connection():
-#     conn = None
-#     try:
-#         conn = pyodbc.connect('Driver={SQL Server};'
-#                       'Server=JBUNNELLSTUDIO;'
-#                       'Database=SeniorDesign;'
-#                       'Trusted_Connection=yes;')
-#         print("SQL Database connection successful")
-#     except pyodbc.Error as err:
-#         print("Error: '{err}'",err)
-#         exit()
-#     return conn
-        
 def getTest(conn):
     print("Get Test")
     cursor = conn.cursor()

@@ -35,12 +35,12 @@
             <pre>
             <code class="language-c">
             <xmp>
-        
-    // * Authors: Dawod Rafoka & James Bunnill
+                
+    // * Authors: Dawod & James 
     // * Project: Pet Ball Dispenser
     // * Class: CompE-496 | Senior Design B
-    // * Date: 10/10/2021
-    // * File: MainProgram.ino intefaces with the Arduino
+    // * Date: 12/1/2021
+    // * File: MainProgram.ino interfaces with the Arduino
 
 
     /*#########################################################*/
@@ -56,6 +56,7 @@
     #include <flash_efc.h>
     #include <AccelStepper.h>
     #include <string>
+    #include <cstdlib>
 
     /*****      DEFINITIONS        ******/
     //LCD Screen
@@ -78,6 +79,14 @@
     #define ClOCKWISE 1
     #define COUNTERClOCKWISE 0
 
+    char* percentages[] = {
+        "Trigger = 75%",
+        "Trigger = 85%", 
+        "Trigger = 90%",
+        "Trigger = 93%",
+        "Trigger = 95%",
+        "Trigger = 98%"
+    };
 
     /*****       VARIABLES         ******/
     // STEPPER & DC MOTOR & JAM
@@ -88,15 +97,15 @@
     uint8_t LimHome = 51;
     uint8_t LimDeploy = 53;
     uint8_t UnjamAmount = 400;//intally 320
-    int JamThreshold = 500;
+    int JamThreshold = 68;
     uint8_t Jams = 0;
     uint8_t JammedDelay = 20;
     uint8_t Attempts = 0;
     uint8_t MaxAttempts = 3;
     int HOME = 1;
     int DEPLOYED = -1;
-    int ReadyPos = -160;
-    int DeployedPos = -1800;
+    long ReadyPos = -145;
+    long DeployedPos = -2000;
 
     // Initialize LcdMenu with the menu items
     const int rs = 32, en = 30, d4 = 28, d5 = 26, d6 = 24, d7 = 22;
@@ -131,6 +140,7 @@
     int UnJam(int DIR);
     int Dispense(int n);
     int Deploy();
+    void gotoHome();
     int TurnOffDCMotor();
     int TurnOnDCMotor();
 
@@ -139,7 +149,7 @@
     // Initialize the main menu items
     MenuItem mainMenu[] = {ItemHeader(),
                         MenuItem("Ball Dispenser"),
-                        MenuItem("Despense"),
+                        MenuItem("Dispense"),
                         MenuItem("Unjam"),
                         MenuItem("Calibrate"),
                         ItemList("About", about, aboutLength, resetCallback),
@@ -165,17 +175,6 @@
     {
         Serial.begin(9600);
         menu.setupLcdWithMenu(rs, en, d4, d5, d6, d7, mainMenu);
-        //STEPPER MOTOR DRIVER
-        // pinMode(stepSTEP, OUTPUT);
-        // pinMode(stepDIR, OUTPUT);
-        // pinMode(currentSensor1, INPUT);
-        // pinMode(currentSensor2, INPUT);
-
-        //DC MOTOR DRIVER
-        // pinMode(DcEN, OUTPUT);
-        // pinMode(DcDIR, OUTPUT);
-        // Turn off motors - initially
-        // turnDCmotorOFF();
 
         //Light Sensor Calibartion Initialization
         pinMode(LIGHT_SENSOR_READ, INPUT);
@@ -219,9 +218,12 @@
         Nema17.setAcceleration(1000);
         
         //inital homming
+        menu.displayNotification("Homing...", 1);
         HomeStepper();
+        menu.down(); menu.up(); //So Notifications don't obstruct the value
     }
 
+    //******* UNCOMMMENT Serial.print() for debugging ********//
     void loop()
     {
         //Read the values from the rotary encoder
@@ -240,6 +242,7 @@
             // Serial.print(intensityActivationValue);
             menu.displayNotification("Laser Dispense", 1);
             Deploy();
+            menu.down(); menu.up(); //So Notifications don't obstruct the value
         }
         
         if (r == 1)
@@ -269,17 +272,20 @@
             case DESPENCE:
                 menu.down(); menu.up(); //So Notifications don't obstruct the value
                 // DCmotorControl("Despence...", 2000);
-                menu.displayNotification("Dispensing!", 2000);
-                if(Deploy() == 1){                
-                    menu.displayNotification("Failed Dispense, please check mechanism", 2000);
+                menu.displayNotification("Dispensing!", 1);
+                if(Deploy()){                
+                    menu.displayNotification("Failed! :(", 2000);
                     //Failed Dispense
                 }
                 else{
-                    menu.displayNotification("Success!", 2000);
-                    //Succesfull Dispense
+                    menu.displayNotification("Success! :)", 2000);
+                    //Successful Dispense
                 }
                 break;
             case UNJAM:
+                menu.down(); menu.up(); //So Notifications don't obstruct the value
+                menu.displayNotification("Unjamming...", 1000);
+                UnJam(-1);
                 menu.down(); menu.up(); //So Notifications don't obstruct the value
                 break;
             case CALIBRATE:
@@ -288,21 +294,27 @@
                 // Serial.print(intensityActivationValue);
                 prevIntensityActivationValue = intensityActivationValue;
                 menu.displayNotification("Calibrating...", 1000);
+                gotoHome();
                 if (lightSensorCalibrate())
                 {
-                    delay(500);
+                    delay(200);
                     if(intensityActivationValue == prevIntensityActivationValue)
                     {
                     menu.displayNotification("Same Trigger!", 1);
                     }
                     else
                     {
-                    char* message = "Trigger= ";
-                    char perentageChar[6];
-                    int percentage = intensityActivationValue/4096;
-                    sprintf(perentageChar, "#%04d", percentage);
-                    message = strcat(message, perentageChar);
-                    message = strcat(message, "%");
+                    char* message;
+                    switch(intensityActivationValue)
+                    {
+                        case 3072: message = percentages[0]; break;
+                        case 3482: message = percentages[1]; break;
+                        case 3686: message = percentages[2]; break;
+                        case 3789: message = percentages[3]; break;
+                        case 3891: message = percentages[4]; break;
+                        case 4014: message = percentages[5]; break;
+                        default: message = "Same Trigger!"; break;
+                    }
                     menu.displayNotification(message, 1);
                     }
                     
@@ -310,7 +322,6 @@
                     // Serial.print("New Intensity: ");
                     // Serial.print(intensityActivationValue);
                     // Serial.print("\n");
-                    // menu.displayNotification("Calibrated!", 1);
                 }
                 else
                 {
@@ -335,7 +346,6 @@
             default:
                 break;
             }
-
             // Serial.print("Pressed \n");
         }
     }
@@ -410,6 +420,7 @@
 
 
     void HomeStepper(){
+    TurnOnDCMotor();
     while(digitalRead(LimDeploy) == HIGH){ 
         Nema17.moveTo(DEPLOYED); 
         Nema17.run();
@@ -430,36 +441,39 @@
         Nema17.run();
     }
     Nema17.stop();
+    TurnOffDCMotor();
+    }
 
-    }
-    /*Dispense operates DC MOTOR and STEPPER MOTOR to deploy N number of balls*/
-    int Dispense(int n){
-    Attempts = 0;
-    for (size_t i = 0; i < n; i++)
+    void gotoHome(){
+    TurnOffDCMotor();
+    Nema17.moveTo(10000);
+    while(Nema17.distanceToGo() != 0 && digitalRead(LimHome) == HIGH)
     {
-        if(Deploy() == 1){
-            UnJam(-1);
-            if(Attempts >= MaxAttempts){
-                return 1;// FAiled to dispesne
-            }
-            Attempts++;
-        }
-        i--;
+        Nema17.run();
     }
-    return 0; //success
+    Nema17.stop();
+    Nema17.setCurrentPosition(0);
+    Nema17.moveTo(ReadyPos);
+    while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH)
+    {
+        Nema17.run();
+    }
+    Nema17.stop();
+    Nema17.setCurrentPosition(ReadyPos);
     }
 
     int UnJam(int DIR){
+    long wiggleAmount = 700;
     switch(DIR){
         case ClOCKWISE:  
-            Nema17.move(320);
+            Nema17.move(wiggleAmount);
             while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
             Nema17.run();
             }
             Nema17.stop();
             break; //Start movement into the counterclockwise direction
         case COUNTERClOCKWISE: 
-            Nema17.move(-320);
+            Nema17.move(-wiggleAmount);
             while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
             Nema17.run();
             }
@@ -468,43 +482,59 @@
             break; //Start movement into the clockwise direction
         default: 
             
-            Nema17.move(-320);
+            Nema17.move(-wiggleAmount);
             while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
             Nema17.run();
             }
             Nema17.stop();
-            Nema17.move(320);
+            Nema17.move(wiggleAmount);
+            while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
+            Nema17.run();
+            }
+            Nema17.stop();
+
+            Nema17.move(-wiggleAmount-wiggleAmount);
+            while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
+            Nema17.run();
+            }
+            Nema17.stop();
+            Nema17.move(wiggleAmount+wiggleAmount);
             while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH && digitalRead(LimHome) == HIGH){    
             Nema17.run();
             }
             Nema17.stop();
             break; //Jiggle movement
     }
+    gotoHome();
     return 0;
     }
 
     /*Deploy operates DC MOTOR and STEPPER MOTOR to deploy 1 ball*/
     int Deploy(){
     /* Starting at home position 0 step 100 steps to delpoy position then ste*/
-    uint8_t Jammed = 3;
-    uint8_t JamCount = 0;
+    int Jammed = 3;
+    int JamCount = 0;
+    gotoHome();
     TurnOnDCMotor();
     
     Nema17.moveTo(DeployedPos);
     while(Nema17.distanceToGo() != 0 && digitalRead(LimDeploy) == HIGH){    
         if(Nema17.currentPosition() <(ReadyPos - 500)){
             if(CheckJam()){
+            menu.displayNotification("Jam Detected", 1);
             UnJam(ClOCKWISE);
-            Nema17.moveTo(DeployedPos);
             JamCount++;      
             }
-            if(JamCount > Jammed){
-            return 1; //Fail
+            if(JamCount >= Jammed){
+            menu.displayNotification("Jam MAX", 1);
+            gotoHome();
+            return(1); //Fail
             }
         }
         Nema17.run();
     }
     Nema17.stop();
+    Nema17.setCurrentPosition(DeployedPos);
     delay(1000);
     TurnOffDCMotor();  
     JamCount = 0;
@@ -513,40 +543,44 @@
     {
         if(Nema17.currentPosition() < (DeployedPos + 500)){
             if(CheckJam()){
+            menu.displayNotification("Jam Detected", 1);
             UnJam(COUNTERClOCKWISE);
-            Nema17.moveTo(ReadyPos);
+            //  Nema17.moveTo(ReadyPos);
             JamCount++;           
             }
             if(JamCount > Jammed){
-            return 1; //Fail
+            menu.displayNotification("Jam MAX", 1);
+            gotoHome();
+            return(1); //Fail
             }
         }
         Nema17.run();
     }
     Nema17.stop();
-    //delay(1000);
-    return 0; //success
+    Nema17.setCurrentPosition(0);
+    gotoHome();
+    // Serial.print("Returning Home \n");
+    if(JamCount > 0)
+        return(1);
+    else
+        return(0); //success
     }
 
     int CheckJam(){
     //  Serial.print("Checking Jam"); 
-    int ADCResult = (analogRead(A2) -  analogRead(A1));
-    //  Serial.print("ADCResult: ");  
-    //  Serial.print(ADCResult);
-    if(JamThreshold < ADCResult){
-        if(Jams > JammedDelay){
-            Jams = 0;
-            return 1;
-        }
-        else{
-        Jams++;
-    //      Serial.print("Jams: ");        
-    //      Serial.print(Jams);
-        return 0;      
-        }
+    int ADCResult = abs(analogRead(A2) -  analogRead(A1));
+    // Serial.print("ADCResult: ");  
+    // Serial.print(analogRead(A2));
+    // Serial.print("  ");
+    // Serial.print(analogRead(A1));
+    // Serial.print("  "); 
+    // Serial.print(ADCResult);
+    // Serial.print('\n');
+    if(ADCResult > JamThreshold){
+        return(1);
     } 
     else{
-        return 0;
+        return(0);
     }   
     } 
 
@@ -558,7 +592,7 @@
     int TurnOnDCMotor(){
     digitalWrite(DCM1, HIGH);
     digitalWrite(DCM2, LOW);  
-    } 
+    }  
 
             </xmp>
             </code>
