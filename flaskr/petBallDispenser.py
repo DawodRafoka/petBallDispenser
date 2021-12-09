@@ -24,11 +24,13 @@ except pyodbc.Error as err:
 def StartSession():
     row = None
     rows = cursor.execute('SELECT * FROM Sessions')
-    for row in rows:
-        temp = max(cursor)
     if not row:
         temp = 0
         print("cursor was empty")
+    else:
+        for row in rows:
+            temp = max(cursor)
+            
     # print(temp[0])
     session['SessionId'] = temp + 1
     query = """INSERT INTO Sessions (SessionId) VALUES (?)"""
