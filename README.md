@@ -7,9 +7,9 @@ To set up demo website please download the contents of the flaskr folder and run
  
  Once all required packages are downloaded move on to Database setup. 
  ### Database 
- Download the SeniorDesign.bak file, this is the MSSQLSever schema nesscary to run our website. Once that is downloaded open and import the backup via 
- MS SQL server managemet studio. Once that backup is restored navigate to Petballdispenser.py and change the following line of code to the correct name
- of your system. 
+ Download the SeniorDesign.bak file in the Database backup folder, this is the MSSQLSever schema nesscary to run our website. Once that is downloaded
+ open and import the backup via MS SQL server managemet studio. Once that backup is restored navigate to Petballdispenser.py and change the following
+ line of code to the correct name of your system. 
  
      conn = pyodbc.connect('Driver={SQL Server};'
                     'Server=<YourPCName>;'
