@@ -6,13 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mechanical Design</title>
-    <link rel="stylesheet" href="{{ url_for('static',     filename='css/style.css') }}">
-    <script type="text/javascript" src="{{ url_for('static',     filename='js/script.js') }}"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="./js/scripts.js"></script>
 </head>
 
 <body>
-    {% extends "template.html" %}
-    {% block content %}
+
+    <div class="wrapper" id="bg">
+        <div class="layerParallax hero-text" id="topNav">
+            <a href="./index.html" id="mainLogo">Senior Design | 2021</a>
+            <ul class="flex-container">
+                <li id="suggestions" class="btn"><a onclick="showForm()">Suggestions?</a></li>
+                <li><a href="./index.html">Main</a></li>
+                <li><a href="./mechanical.html">Mechanical</a></li>
+                <li><a href="./electrical.html">Electrical</a></li>
+                <li><a href="./firmware.html">Firmware</a></li>
+                <li><a href="./about.html">About US</a></li>
+            </ul>
         </div>
         <div class="groupParallax">
             <!-- Images go here -->
@@ -26,50 +37,79 @@
         </div>
         <div class="groupParallax gridContainer">
             <div class="subHeader">
-                <p>All the Mechanical designs were created with SolidWorks 2021<br>3D printed with a personally modifed printer</p>
+                <p>All the Mechanical designs were created with SolidWorks 2021<br>3D printed with a personally modifed
+                    printer</p>
             </div>
-            
+
             <!-- One Download Button Start -->
             <!-- <div class="text">
                 <h2>Enclosure Assembly</h2>
                 <p>This part simply holds the hopper to the main enclosure and correctly spaces the hopper over the dispening ramp.</p>
-                <a id="d" href="{{ url_for('download', Folder='Mechanical', FileName='Enclosure_Assembly.SLDASM') }}" class="btn" >Download .SLDASM File</a>
+                <a id="d" href="./Parts/Mechanical/Enclosure_Assembly.SLDASM" class="btn" >Download .SLDASM File</a>
             </div>
-            <img src="{{ url_for('static',     filename='/Images/mechanical/contentimages/connector.png') }}" alt="Enclosure Assembly"> -->
+            <img src="./Images/mechanical/contentimages/connector.png" alt="Enclosure Assembly"> -->
             <!-- One Download Button End -->
 
             <div class="text">
                 <h2>Hopper</h2>
                 <p>This part holds the ping pong balls and feeds the ball into the dispenser disk.</p>
-                <a id="downloadBtn" href="{{ url_for('download', Folder='Mechanical', FileName='Hopper_Base_Assembly.SLDASM') }}" class="btn" >Download .SLDASM File</a>
+                <a id="downloadBtn"
+                    href="./Parts/Mechanical/Hopper_Base_Assembly.SLDASM"
+                    class="btn">Download .SLDASM File</a>
             </div>
-            <img src="{{ url_for('static',  filename='/Images/mechanical/contentimages/hopper.png') }}" alt="Hoper">
+            <img src="./Images/mechanical/contentimages/hopper.png" alt="Hoper">
 
             <div class="text">
                 <h2>Hopper Lid</h2>
                 <p>This part screws into the hopper and secures the ping pong balls inside.</p>
-                <a id="downloadBtn" href="{{ url_for('download', Folder='Mechanical', FileName='Hopper_Lid.SLDPRT') }}" class="btn" >Download .SLDASM File</a>
+                <a id="downloadBtn" href="./Parts/Mechanical/Hopper_Lid.SLDPRT"
+                    class="btn">Download .SLDASM File</a>
             </div>
-            <img src="{{ url_for('static',     filename='/Images/mechanical/contentimages/lid.png') }}" alt="Lid">
+            <img src="./Images/mechanical/contentimages/lid.png" alt="Lid">
 
             <div class="text">
                 <h2>Connecting Bar</h2>
-                <p>This part simply holds the hopper to the main enclosure and correctly spaces the hopper over the dispening ramp.</p>
-                <a id="downloadBtn" href="{{ url_for('download', Folder='Mechanical', FileName='Connecting_Bar.SLDPRT') }}" class="btn" >Download .SLDASM File</a>
+                <p>This part simply holds the hopper to the main enclosure and correctly spaces the hopper over the
+                    dispening ramp.</p>
+                <a id="downloadBtn"
+                    href="./Parts/Mechanical/Connecting_Bar.SLDPRT"
+                    class="btn">Download .SLDASM File</a>
             </div>
-            <img src="{{ url_for('static',     filename='/Images/mechanical/contentimages/connector.png') }}" alt="Connecting Bar">
+            <img src="./Images/mechanical/contentimages/connector.png"
+                alt="Connecting Bar">
 
             <div class="text">
                 <h2>Dispenser Ramp</h2>
-                <p>This part simply holds the hopper to the main enclosure and correctly spaces the hopper over the dispening ramp.</p>
-                <a id="downloadBtn" href="{{ url_for('download', Folder='Mechanical', FileName='Foot_Ramp.SLDPRT') }}" class="btn" >Download .SLDASM File</a>
+                <p>This part simply holds the hopper to the main enclosure and correctly spaces the hopper over the
+                    dispening ramp.</p>
+                <a id="downloadBtn" href="./Parts/Mechanical/Foot_Ramp.SLDPRT"
+                    class="btn">Download .SLDASM File</a>
             </div>
-            <img src="{{ url_for('static',     filename='/Images/mechanical/contentimages/base.png') }}" alt="Dispenser Ramp">
-
-
+            <img src="./Images/mechanical/contentimages/base.png"
+                alt="Dispenser Ramp">
         </div>
-
-    {% endblock %}
+        <footer class="footer" id="footer">
+            <p class="copyright">&copy San Diego State University • Senior Design 2021 • Team 8</p>
+        </footer>
+    </div>
+    <!-- Pop up form-->
+    <div class="formContainer" id="popupForm">
+        <label for="popupForm" class="closeBtn" onclick="closeForm()">X</label>
+        <h2>Your suggestions and feedback make us better engineers!</h2>
+        <form name="suggestionsForm" onsubmit="return validateForm()" action="#">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <label for="comments">Comments<span class="commentNode"> You may expand the comment box</span></label>
+            <textarea type="text" id="comments" name="comments"></textarea>
+            <button type="submit" class="btn" class="submit">Submit</button>
+            <div class="mailTo">You may also email us at: <a href="mailto:drafoka4124@sdsu.edu">drafoka4124@sdsu.edu</a>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

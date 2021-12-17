@@ -1,56 +1,89 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Ball Dispenser</title>
-    <link rel="stylesheet" href="{{ url_for('static',     filename='css/style.css') }}">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-    <script type="text/javascript" src="{{ url_for('static',     filename='js/script.js') }}"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="./js/scripts.js"></script>
 </head>
+
 <body>
-    {% extends "template.html" %}
-    {% block content %}
-    </div>
-        
 
-    <div class="groupParallax">
-        <!-- Images go here -->
-        <div class="layerParallax mainbgImage"></div>
-        <div class="layerParallax pingpongxs"></div>
-        <div class="layerParallax pingpongs"></div>
-        <div class="layerParallax pingpongl"></div>
-        <div class="layerParallax mainTitlePic"></div>
-        <div class="layerParallax pingpongxl"></div>
-        <div class="layerParallax pingpongxxl"></div>
-        <!-- Transparent Navigation Bar -->
-    </div>
-    <div class="groupParallax gridContainer">
-        <div class="subHeader">
-            <p>Our Created Device, the <span style="font-weight: bold;">Pet Ball Dispenser</span><i style="font-size: 1rem; opacity: 70%;;">for the lack of names</i>, is a product that dispenses regular sized ping pong balls when a user shines a laser on the device's photocell or uses the built-in multifunction knob<br>All for the enjoyment of a pet such as a kitten &#x1f638;</p>
-            <img class="actualDevice" src="{{ url_for('static',     filename='Images/main/contentImages/device.png') }}" alt="Actual Device">
+    <div class="wrapper" id="bg">
+        <div class="layerParallax hero-text" id="topNav">
+            <a href="./index.html" id="mainLogo">Senior Design | 2021</a>
+            <ul class="flex-container">
+                <li id="suggestions" class="btn"><a onclick="showForm()">Suggestions?</a></li>
+                <li><a href="./index.html">Main</a></li>
+                <li><a href="./mechanical.html">Mechanical</a></li>
+                <li><a href="./electrical.html">Electrical</a></li>
+                <li><a href="./firmware.html">Firmware</a></li>
+                <li><a href="./about.html">About US</a></li>
+            </ul>
         </div>
-        
-        
-        <div class="text">
-            <h2>Watch it in action!</h2>
-            <p>This video demonstrates the device's functionality in a real-world scenario<br><i>Spoilers: video will be ready after 12/10 &#128513</i></p>
+        <div class="groupParallax">
+            <!-- Images go here -->
+            <div class="layerParallax mainbgImage"></div>
+            <div class="layerParallax pingpongxs"></div>
+            <div class="layerParallax pingpongs"></div>
+            <div class="layerParallax pingpongl"></div>
+            <div class="layerParallax mainTitlePic"></div>
+            <div class="layerParallax pingpongxl"></div>
+            <div class="layerParallax pingpongxxl"></div>
+            <!-- Transparent Navigation Bar -->
         </div>
-        <div class="videoContainer">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/FTmKMXAFOr0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        
-        <div class="subHeader">
-            <p>You may view all the source code for this website and download all the files on GitHub!</p>
-            <a id="gitHubRepo" href="https://github.com/DawodRafoka/petBallDispenser" class="btn" style="font-size: 1rem" target="blank">Visit GitHub Repo</a>
-        </div>
-        
+        <div class="groupParallax gridContainer">
+            <div class="subHeader">
+                <p>Our Created Device, the <span style="font-weight: bold;">Pet Ball Dispenser</span><i
+                        style="font-size: 1rem; opacity: 70%;;">for the lack of names</i>, is a product that dispenses
+                    regular sized ping pong balls when a user shines a laser on the device's photocell or uses the
+                    built-in multifunction knob<br>All for the enjoyment of a pet such as a kitten &#x1f638;</p>
+                <img class="actualDevice"
+                    src="./Images/main/contentImages/device.png"
+                    alt="Actual Device">
+            </div>
 
-    
+
+            <div class="text">
+                <h2>Watch it in action!</h2>
+                <p>This video demonstrates the device's functionality in a real-world scenario<br><i>Spoilers: video is unlisted for a reason &#128513</i></p>
+            </div>
+            <div class="videoContainer">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/G55KqaKVqrg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="subHeader">
+                <p>You may view all the source code for this website and download all the files on GitHub!</p>
+                <a id="gitHubRepo" href="https://github.com/DawodRafoka/petBallDispenser" class="btn"
+                    style="font-size: 1rem" target="blank">Visit GitHub Repo</a>
+            </div>
+        </div>
+        <footer class="footer" id="footer">
+            <p class="copyright">&copy San Diego State University • Senior Design 2021 • Team 8</p>
+        </footer>
     </div>
-    
-    {% endblock %}
-    <!-- <section class="overflow"></section> -->
+    <!-- Pop up form-->
+    <div class="formContainer" id="popupForm">
+        <label for="popupForm" class="closeBtn" onclick="closeForm()">X</label>
+        <h2>Your suggestions and feedback make us better engineers!</h2>
+        <form name="suggestionsForm" onsubmit="return validateForm()" action="#">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <label for="comments">Comments<span class="commentNode"> You may expand the comment box</span></label>
+            <textarea type="text" id="comments" name="comments"></textarea>
+            <button type="submit" class="btn" class="submit">Submit</button>
+            <div class="mailTo">You may also email us at: <a
+                    href="mailto:drafoka4124@sdsu.edu">drafoka4124@sdsu.edu</a></div>
+        </form>
+    </div>
 </body>
+
 </html>

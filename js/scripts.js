@@ -1,4 +1,3 @@
-
 function validateForm() {
     if((document.forms["suggestionsForm"]["fname"].value == "") ||
        (document.forms["suggestionsForm"]["comments"].value == ""))
