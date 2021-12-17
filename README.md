@@ -1,5 +1,7 @@
 # petBallDispenser
 ## Setup
+The following version is a static website and does not contain a database; the requirement below are for the dynamic website
+
 ### Requirements
 To set up demo website please download the contents of the flaskr folder and run the follwing command:
 
